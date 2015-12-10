@@ -6,3 +6,4 @@ app/bower_components
 app/files/*
 app/images/*.jpeg
 **/**/**/*.db
+*~

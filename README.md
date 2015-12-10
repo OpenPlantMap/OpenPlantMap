@@ -1,7 +1,14 @@
-OpenSenseMap
+<img src="https://raw.githubusercontent.com/OpenPlantMap/OpenPlantMap/master/images/Logo.png" width="450">
 ============
+This is the front-end for OpenPlantMap.
 
-## Installation
+OpenPlantMap is based on [OpenSenseMap](https://github.com/sensebox/OpenSenseMap). 
+
+OpenPlantMap is created within the course "SenseBox for People-Centered Urban Planning" at the Institute for Geoinformatics (WWU Münster).
+###Installation instructions
+
+The installation steps are the same like the of OpenSenseMap. The following instructions are copied from the README file of this project.
+#### Installation
 
 Go to the cloned repository and run
 
