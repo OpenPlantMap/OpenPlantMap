@@ -19,7 +19,8 @@ angular
     'flow',
     'ui.checkbox',
     'highcharts-ng',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'vds.multirange'
   ])
   .config(function ($routeProvider) {
     $routeProvider

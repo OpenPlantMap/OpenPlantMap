@@ -1,8 +1,9 @@
 <div id="map">
 	<leaflet center="center" markers="mapMarkers" defaults="defaults" controls="controls" id="map_main">
 	</leaflet>
-
-	<i class="fa fa-info" ng-click="openDialog()" id="app_info_button"></i>
+    <i class="fa fa-info" ng-click="openDialog()" id="app_info_button"></i>
+    <i class="fa fa-tree" ng-click="openDialog()" title="show plants on map" style="background-color: green"id="show_flowers"></i>
+    <i class="fa fa-area-chart" ng-click="openDialog()"title="show sensors on map" style="background-color: blue" id="show_sensors"></i>
 
 	<div id="sidebar" ng-show="sidebarActive" style="background-position: 0px -5px;">
 		<div ng-show="detailsPanel">
@@ -22,14 +23,49 @@
       <div class="row" role="tabpanel">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-justified" role="tablist">
-          <li role="presentation" class="active"><a href data-target="#tabMeasurements" aria-controls="tabMeasurements" role="tab" data-toggle="tab">{{ 'SIDEBAR_TAB_MEASUREMENTS' | translate }}</a></li>
-          <li role="presentation"><a href data-target="#tabInfo" aria-controls="tabInfo" role="tab" data-toggle="tab">{{ 'SIDEBAR_TAB_INFO' | translate }}</a></li>
+          <li role="presentation" class="active"><a href data-target="#tabInfo" aria-controls="tabInfo" role="tab" data-toggle="tab">{{ 'SIDEBAR_TAB_INFO' | translate }}</a></li>
+           <li role="presentation" ><a href data-target="#tabMeasurements" aria-controls="tabMeasurements" role="tab" data-toggle="tab">{{ 'SIDEBAR_TAB_MEASUREMENTS' | translate }}</a></li>
           <li role="presentation"><a href data-target="#tabManage" aria-controls="tabManage" role="tab" data-toggle="tab">{{ 'SIDEBAR_TAB_MANAGE' | translate }}</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="tabMeasurements">
+ 
+          <div role="tabpanel" class="tab-pane active conditions" id="tabInfo">
+           <div class="list-group">
+              <accordion close-others="oneAtATime"  >
+                <accordion-group title="(when multiple sensors and plants within an area are selected)">
+                  <accordion-heading >
+                  <div style="background-color:#FF9;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: sunny (48%)  <div style="text-indent: 55pt;">4.45 hours </div></div><div style="background-color: #FF5;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: sunny (4 of 5)</div>
+             
+                  </accordion-heading>
+                    <div style="text-indent: 45pt;"> semi-shade (32%) | semi-shade (1)</div>
+                  <div style="text-indent: 45pt;">3.45 hours </div>
+                  <div style="text-indent: 45pt;"> shady (20%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| shady (0)</div>
+                  <div style="text-indent: 45pt;">1.45 hours </div>
+                </accordion-group>
+              </accordion>
+            </div> <!-- end .list-group -->
+            <div flow-init="{singleFile:true}" flow-file-added="added($file,$event)" flow-drop>
+              <div class="thumbnail">
+                <img ng-src="/userimages/{{image}}" ng-hide="$flow.files.length && editableMode" alt="Image for {{ selectedMarker.name || 'Filter' }}">
+                <img id="image" flow-img="$flow.files[0]" ng-show="$flow.files.length && editableMode">
+              </div>
+              <div ng-show="editableMode">
+                <span class="btn btn-primary" flow-btn>{{ 'SETTINGS_SELECTIMAGE' | translate }}</span>
+                <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">{{ 'REMOVE' | translate }}</span>
+                <p ng-show="editableMode">{{ 'SETTINGS_IMAGE_RESTRICTIONS' | translate }}</p>
+              </div>
+            </div>
+<vds-multirange ng-model="rangeArray" ></vds-multirange>
+
+          </div> <!-- end tabInfo pange -->
+          <div role="tabpanel" class="tab-pane" id="tabMeasurements">
+               <div style="text-align: right; margin: 10px;10px; 10px 10px;"> 
+                            <a href="{{'#/download/'}}{{ box}}" class="btn btn-primary ng-binding">
+                                <span class="glyphicon glyphicon-floppy-save"></span> {{'DATADOWNLOAD'| translate}}
+                            </a>
+                        </div>
             <div class="list-group">
               <accordion close-others="oneAtATime">
                 <accordion-group ng-click="getData(sensor);" ng-repeat="sensor in selectedMarkerData.sensors">
@@ -44,22 +80,6 @@
               </accordion>
             </div> <!-- end .list-group -->
           </div> <!-- end #tabMeasurements pane -->
-
-          <div role="tabpanel" class="tab-pane" id="tabInfo">
-
-            <div flow-init="{singleFile:true}" flow-file-added="added($file,$event)" flow-drop>
-              <div class="thumbnail">
-                <img ng-src="/userimages/{{image}}" ng-hide="$flow.files.length && editableMode" alt="Image for {{ selectedMarker.name || 'Filter' }}">
-                <img id="image" flow-img="$flow.files[0]" ng-show="$flow.files.length && editableMode">
-              </div>
-              <div ng-show="editableMode">
-                <span class="btn btn-primary" flow-btn>{{ 'SETTINGS_SELECTIMAGE' | translate }}</span>
-                <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">{{ 'REMOVE' | translate }}</span>
-                <p ng-show="editableMode">{{ 'SETTINGS_IMAGE_RESTRICTIONS' | translate }}</p>
-              </div>
-            </div>
-          </div> <!-- end tabInfo pange -->
-          
           <div role="tabpanel" class="tab-pane" id="tabManage">
 
             <div class="row">
