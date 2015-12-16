@@ -3,200 +3,208 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <title>openPlantMap</title>
-    <meta name="description" content="OpenSenseMap is a platform for publishing and visualizing environmental sensor data.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <title>openPlantMap</title>
+        <meta name="description" content="OpenSenseMap is a platform for publishing and visualizing environmental sensor data.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="icon" href="/images/sensebox-favicon.png" type="image/png">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
-    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
-    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
-    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-language/languages.min.css" />
-    <link rel="stylesheet" href="bower_components/multirange/multirange.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
-    <link rel="stylesheet" href="styles/Control.Geocoder.css">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="icon" href="/images/sensebox-favicon.png" type="image/png">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
+        <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-language/languages.min.css" />
+        <link rel="stylesheet" href="bower_components/multirange/multirange.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
+        <link rel="stylesheet" href="styles/Control.Geocoder.css">
 
-    <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="styles/BrixSlab-font.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/ngDialog-theme-flat.css">
-    <!-- endbuild -->
-    <link rel="stylesheet" href="styles/rcWizard.css">
-    
-  </head>
-  <body ng-app="openSenseMapApp" flow-prevent-drop>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+        <!-- build:css({.tmp,app}) styles/main.css -->
+        <link rel="stylesheet" href="styles/BrixSlab-font.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/ngDialog-theme-flat.css">
+        <!-- endbuild -->
+        <link rel="stylesheet" href="styles/rcWizard.css">
 
-    <!-- Fixed navbar -->
-    <header class="navbar navbar-default navbar-fixed-top" style="background-color: greenyellow;"ng-controller="HeaderCtrl">
-        <div class="navbar-inner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span id="brand_with_logo"><a class="navbar-brand" style="font-family: Helvetica,Arial,sans-serif;font-size: 25px;"href="#/"><img src="images/sensebox-favicon.png"><b>&nbsp;openPlantMap</b></a></span>
+    </head>
+    <body ng-app="openSenseMapApp" flow-prevent-drop>
+        <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Fixed navbar -->
+        <header class="navbar navbar-default navbar-fixed-top" style="background-color: greenyellow;"ng-controller="HeaderCtrl">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span id="brand_with_logo"><a class="navbar-brand" style="font-family: Helvetica,Arial,sans-serif;font-size: 25px;"href="#/"><img src="images/sensebox-favicon.png"><b>&nbsp;openPlantMap</b></a></span>
+                    </div>
+                    <nav class="hidden-xs">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="{{'#/explore'}}"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-zoom-in"></span> {{'EXPLORE'| translate}}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{'#/explore'}}"><span>General</span></a></li>
+                                    <li><a href="{{'#/explore/Light'}}"><span>Light</span></a></li>
+                                    <li><a href="{{'#/explore/Temp'}}"><span>Soil_temperature</span></a></li>
+                                    <li><a href="{{'#/explore/PH'}}"><span>PH-Value</span></a></li>
+                                    <li><a href="{{'#/explore/Moisture'}}"><span>Moisture</span></a></li>
+                                </ul>
+                            </li>
+                            <!--  <li>
+                                 <a href="{{'#/upload'}}">
+                                     <span class="glyphicon glyphicon-export"></span> Daten hochladen
+                                 </a>
+                             </li> -->
+                            <li>
+                                <a href="{{'#/classify'}}">
+                                    <span class="fa fa-pencil"/> &nbsp;Classify
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{'#/register'}}">
+                                    <span class="glyphicon glyphicon-barcode"></span> {{'REGISTER'| translate}}
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="lang-sm" lang="{{key}}"></span> <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <!-- languages-start --><li><a ng-click="changeLang('de_DE')"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li><li><a ng-click="changeLang('en_US')"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li><li><a ng-click="changeLang('es_CO')"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li><li><a ng-click="changeLang('pl_PL')"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li><li><a ng-click="changeLang('pt_BR')"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li><!-- languages-end -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav class="visible-xs" collapse="!isCollapsed">
+                        <ul class="nav navbar-nav" collapse="!isCollapsed">
+                            <li class="dropdown">
+                                <a href="{{'#/explore'}}"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-zoom-in"></span> {{'EXPLORE'| translate}}<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{'#/explore'}}"><span>General</span></a></li>
+                                    <li><a href="{{'#/explore/Light'}}"><span>Light</span></a></li>
+                                    <li><a href="{{'#/explore/Temp'}}"><span>Soil_temperature</span></a></li>
+                                    <li><a href="{{'#/explore/PH'}}"><span>PH-Value</span></a></li>
+                                    <li><a href="{{'#/explore/Moisture'}}"><span>Moisture</span></a></li>
+
+                                </ul>
+                            </li>
+                            <!-- <li>
+                                <a href="{{'#/upload'}}" ng-click="isCollapsed = !isCollapsed">
+                                    <span class="glyphicon glyphicon-export"></span> Daten hochladen
+                                </a>
+                            </li> -->
+                            <li>
+                                <a href="{{'#/classify'}}">
+                                    <span class="fa fa-pencil"/> &nbsp; Classify
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{'#/register'}}">
+                                    <span class="glyphicon glyphicon-barcode"></span> {{'REGISTER'| translate}}
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ng-click="changeLang('de_DE')"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li>
+                                    <li><a ng-click="changeLang('en_US')"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
+                                    <li><a ng-click="changeLang('pl_PL')"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li>
+                                    <li><a ng-click="changeLang('pt_BR')"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li>
+                                    <li><a ng-click="changeLang('es_CO')"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <nav class="hidden-xs">
-                    <ul class="nav navbar-nav navbar-right">
-                           <li class="dropdown">
-                                <a href="{{'#/explore'}}"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span class="glyphicon glyphicon-zoom-in"></span> {{'EXPLORE' | translate}}<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click=""><span>General</span></a></li>
-                                <li><a ng-click=""><span>Light</span></a></li>
-                                <li><a ng-click=""><span>Soil_temperature</span></a></li>
-                                <li><a ng-click=""><span>PH-Value</span></a></li>
-                                <li><a ng-click=""><span>Moisture</span></a></li>
-                            </ul>
-                        </li>
-                       <!--  <li>
-                            <a href="{{'#/upload'}}">
-                                <span class="glyphicon glyphicon-export"></span> Daten hochladen
-                            </a>
-                        </li> -->
-                        <li>
-                            <a href="{{'#/register'}}">
-                                <span class="fa fa-pencil"/> &nbsp;Classify
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{'#/register'}}">
-                                <span class="glyphicon glyphicon-barcode"></span> {{'REGISTER' | translate}}
-                            </a>
-                        </li>
-                       
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="lang-sm" lang="{{key}}"></span> <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <!-- languages-start --><li><a ng-click="changeLang('de_DE')"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li><li><a ng-click="changeLang('en_US')"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li><li><a ng-click="changeLang('es_CO')"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li><li><a ng-click="changeLang('pl_PL')"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li><li><a ng-click="changeLang('pt_BR')"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li><!-- languages-end -->
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <nav class="visible-xs" collapse="!isCollapsed">
-                    <ul class="nav navbar-nav" collapse="!isCollapsed">
-                         <li class="dropdown">
-                                <a href="{{'#/explore'}}"class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span class="glyphicon glyphicon-zoom-in"></span> {{'EXPLORE' | translate}}<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click=""><span>General</span></a></li>
-                                <li><a ng-click=""><span>Light</span></a></li>
-                                <li><a ng-click=""><span>Soil_temperature</span></a></li>
-                                <li><a ng-click=""><span>PH-Value</span></a></li>
-                                <li><a ng-click=""><span>Moisture</span></a></li>
-                            </ul>
-                        </li>
-                        <!-- <li>
-                            <a href="{{'#/upload'}}" ng-click="isCollapsed = !isCollapsed">
-                                <span class="glyphicon glyphicon-export"></span> Daten hochladen
-                            </a>
-                        </li> -->
-                         <li>
-                            <a href="{{'#/register'}}">
-                                <span class="fa fa-pencil"/> &nbsp; Classify
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{'#/register'}}">
-                                <span class="glyphicon glyphicon-barcode"></span> {{'REGISTER' | translate}}
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Language <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a ng-click="changeLang('de_DE')"><span class="lang-sm lang-lbl-full" lang="de"></span></a></li>
-                                <li><a ng-click="changeLang('en_US')"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
-                                <li><a ng-click="changeLang('pl_PL')"><span class="lang-sm lang-lbl-full" lang="pl"></span></a></li>
-                                <li><a ng-click="changeLang('pt_BR')"><span class="lang-sm lang-lbl-full" lang="pt"></span></a></li>
-                                <li><a ng-click="changeLang('es_CO')"><span class="lang-sm lang-lbl-full" lang="es"></span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
             </div>
+        </header>
+
+        <!-- Add your site or application content here -->
+        <div class="container">
+            <ng-view></ng-view>
         </div>
-    </header>
 
-    <!-- Add your site or application content here -->
-    <div class="container">
-        <ng-view></ng-view>
-    </div>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-XXXXX-X');
+            ga('send', 'pageview');
+        </script>
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
 
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+        <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+        <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+        <script src="bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/angular-underscore/angular-underscore.js"></script>
+        <script src="bower_components/ngDialog/js/ngDialog.js"></script>
+        <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+        <script src="bower_components/ng-clip/src/ngClip.js"></script>
+        <script src="bower_components/flow.js/dist/flow.js"></script>
+        <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
+        <script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script src="bower_components/highcharts-release/highcharts.js"></script>
+        <script src="bower_components/highcharts-release/highcharts-more.js"></script>
+        <script src="bower_components/highcharts-release/modules/exporting.js"></script>
+        <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+        <script src="bower_components/multirange/multirange.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
-    <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
-    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-    <script src="bower_components/nya-bootstrap-select/src/nya-bootstrap-select.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/angular-underscore/angular-underscore.js"></script>
-    <script src="bower_components/ngDialog/js/ngDialog.js"></script>
-    <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
-    <script src="bower_components/ng-clip/src/ngClip.js"></script>
-    <script src="bower_components/flow.js/dist/flow.js"></script>
-    <script src="bower_components/ng-flow/dist/ng-flow.js"></script>
-    <script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
-    <script src="bower_components/angular-translate/angular-translate.js"></script>
-    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-    <script src="bower_components/highcharts-release/highcharts.js"></script>
-    <script src="bower_components/highcharts-release/highcharts-more.js"></script>
-    <script src="bower_components/highcharts-release/modules/exporting.js"></script>
-    <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
-    <script src="bower_components/multirange/multirange.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <script type="text/javascript" src="scripts/directives/jquery.bootstrap.wizard.js"></script>
-    <script type="text/javascript" src="scripts/directives/rcSubmit.js"></script>
-    <script type="text/javascript" src="scripts/directives/rcForm.js"></script>
-    <script type="text/javascript" src="scripts/directives/rcDisabled.js"></script>
-    <script type="text/javascript" src="scripts/directives/rcWizard.js"></script>
-    <script type="text/javascript" src="scripts/Control.Geocoder.js"></script>
+        <script type="text/javascript" src="scripts/directives/jquery.bootstrap.wizard.js"></script>
+        <script type="text/javascript" src="scripts/directives/rcSubmit.js"></script>
+        <script type="text/javascript" src="scripts/directives/rcForm.js"></script>
+        <script type="text/javascript" src="scripts/directives/rcDisabled.js"></script>
+        <script type="text/javascript" src="scripts/directives/rcWizard.js"></script>
+        <script type="text/javascript" src="scripts/Control.Geocoder.js"></script>
 
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -204,6 +212,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/register.js"></script>
         <script src="scripts/controllers/explore.js"></script>
+        <script src="scripts/controllers/classify.js"></script>
         <script src="scripts/services/opensenseboxapi.js"></script>
         <script src="scripts/services/opensenseboxes.js"></script>
         <script src="scripts/services/opensenseboxessensors.js"></script>
@@ -215,5 +224,5 @@
         <!-- endbuild -->
 
     </body>
-    
+
 </html>

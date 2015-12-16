@@ -36,6 +36,22 @@ angular
         templateUrl: 'views/explore.html',
         controller: 'ExploreCtrl',
       })
+      .when('/explore/Light', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreCtrl',
+      })
+      .when('/explore/PH', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreCtrl',
+      })
+      .when('/explore/Temp', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreCtrl',
+      })
+      .when('/explore/Moisture', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreCtrl',
+      })
       .when('/launch', {
         templateUrl: 'views/explore.html',
          controller: 'ExploreCtrl'
@@ -55,6 +71,10 @@ angular
       .when('/download/:boxid', {
         templateUrl: 'views/explore.html',
         controller: 'ExploreCtrl'
+      })
+       .when('/classify', {
+        templateUrl: 'views/classify.html',
+        controller: 'ClassifyCtrl'
       })
       .otherwise({
         redirectTo: '/'
