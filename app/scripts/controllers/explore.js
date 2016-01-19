@@ -49,6 +49,15 @@ angular.module('openSenseMapApp')
                     lng: 10.21728515625,
                     zoom: 6
                 };
+                $scope.paths = {
+                    buffer: {
+		                    weight: 2,
+		                    color: '#ff612f',
+		                    latlngs: $scope.center,
+		                    radius: 50,
+		                    type: 'circleMarker'
+                    } 
+                };
                 $scope.counter = 3;
                 $scope.timeout;
                 $scope.stopcountdown = function () {
@@ -100,7 +109,7 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-                              switch ($location.path()) {
+                            switch ($location.path()) {
                                 case "/":
                                 case "/explore":
                                     if (_.contains(photonikBoxes, tempMarker.id)) {
@@ -482,7 +491,7 @@ angular.module('openSenseMapApp')
                             ;
                             $scope.markers.push(tempMarker);
                         }
-                         $scope.mapMarkers = $scope.markers;
+                        $scope.mapMarkers = $scope.markers;
                     });
                 }
 

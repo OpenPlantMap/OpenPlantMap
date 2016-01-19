@@ -1,5 +1,5 @@
 <div id="map">
-	<leaflet center="center" markers="mapMarkers" defaults="defaults" controls="controls" id="map_main">
+	<leaflet center="center" markers="mapMarkers" defaults="defaults" controls="controls" paths="paths" id="map_main">
 	</leaflet>
     <i class="fa fa-info" ng-click="openDialog()" id="app_info_button"></i>
     <i class="fa fa-tree" ng-click="openDialog()" title="show plants on map" style="background-color: green"id="show_flowers"></i>
@@ -36,14 +36,39 @@
               <accordion close-others="oneAtATime"  >
                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                   <accordion-heading >
-                  <div style="background-color:#FF9;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: sunny (48%)  <div style="text-indent: 55pt;">4.45 hours </div></div><div style="background-color: #FF5;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: sunny (4 of 5)</div>
-             
+                  <div style="background-color:greenyellow;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: Temperature medium (75%) </div>            
+                  </accordion-heading>
+                    <div style="text-indent: 45pt;"> high (15%) </div>
+                  <div style="text-indent: 45pt;"> low (10%) </div>
+                </accordion-group>
+                  
+                  
+                   <accordion-group title="(when multiple sensors and plants within an area are selected)">
+                  <accordion-heading >
+                  <div style="background-color:lightblue;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: semi-humid (58%) </div><div style="background-color: lightblue;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: semi-humid (3 of 5)</div>
+                  </accordion-heading>
+                    <div style="text-indent: 45pt;"> humid (37%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; humid (2)</div>
+                  <div style="text-indent: 45pt;"> dry (5%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dry (0)</div>
+                </accordion-group>
+                  
+                   <accordion-group title="(when multiple sensors and plants within an area are selected)">
+                  <accordion-heading >
+                  <div style="background-color:white;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: PH: neutral (100%) </div><div style="background-color: white;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: neutral (3 of 5)</div>            
+                  </accordion-heading>
+                    <div style="text-indent: 45pt;"> acid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0%) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)</div>
+                    <div style="text-indent: 45pt;"> basic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0%) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; basic &nbsp;&nbsp;&nbsp; (1)</div>
+                </accordion-group>
+                  
+                   <accordion-group title="(when multiple sensors and plants within an area are selected)">
+                  <accordion-heading >
+                  <div style="background-color:#FF9;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: sunny (48%)  <div style="text-indent: 55pt;">4.45 hours </div></div><div style="background-color: #FF5;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: sunny (4 of 5)</div>            
                   </accordion-heading>
                     <div style="text-indent: 45pt;"> semi-shade (32%) | semi-shade (1)</div>
                   <div style="text-indent: 45pt;">3.45 hours </div>
                   <div style="text-indent: 45pt;"> shady (20%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| shady (0)</div>
                   <div style="text-indent: 45pt;">1.45 hours </div>
                 </accordion-group>
+                  
               </accordion>
             </div> <!-- end .list-group -->
             <div flow-init="{singleFile:true}" flow-file-added="added($file,$event)" flow-drop>
