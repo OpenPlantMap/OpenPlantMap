@@ -1,4 +1,5 @@
 'use strict';
+watch;
 angular.module('openSenseMapApp')
         .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
             function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
@@ -49,15 +50,29 @@ angular.module('openSenseMapApp')
                     lng: 10.21728515625,
                     zoom: 6
                 };
+                //##############################added
                 $scope.paths = {
                     buffer: {
-		                    weight: 2,
-		                    color: '#ff612f',
-		                    latlngs: $scope.center,
-		                    radius: 50,
-		                    type: 'circleMarker'
-                    } 
+                        weight: 2,
+                        color: '#ff612f',
+                        radius: 200,
+                        type: 'circleMarker'
+                    }
                 };
+                $scope.events = {
+                    map: {
+                        enable: ['click'],
+                        logic: 'emit'
+                    }
+                };
+                $scope.$on('leafletDirectiveMap.click', function (event, args) {
+                    watch = args;
+                    var latlng= args.leafletEvent.latlng;
+                    alert('clicked'+ latlng);
+                    $scope.paths.buffer.latlongs=latlng;
+                });
+
+                //############################end added
                 $scope.counter = 3;
                 $scope.timeout;
                 $scope.stopcountdown = function () {
