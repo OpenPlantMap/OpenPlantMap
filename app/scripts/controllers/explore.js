@@ -1,8 +1,8 @@
 'use strict';
 watch;
 angular.module('openSenseMapApp')
-        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'leafletMarkerEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, leafletMarkerEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
                 $scope.selectedMarkerData = [];
@@ -97,13 +97,13 @@ angular.module('openSenseMapApp')
                                 break;
                         }
                     }
-                }
+                };
 
                 $scope.launch = function () {
                     document.getElementById("rocket").remove();
                     document.getElementById("zundungheader").innerHTML = "<strong>DREI</strong>";
                     $scope.timeout = $timeout($scope.countdown, 1000);
-                }
+                };
 
                 var photonikBoxes = ["54e8e1dea807ade00f880978",
                     "54d7c2361b93e97007516a19",
@@ -124,28 +124,30 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-                            switch ($location.path()) {
-                                case "/":
-                                case "/explore":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconG;
-                                    } else {
-                                        tempMarker.icon = icons.iconC;
 
-                                    }
-                                    ;
-                                    break;
-                                case "/explore/Light":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconTree;
-                                    } else {
-                                        tempMarker.icon = icons.iconTreeYellow;
+//                              switch ($location.path()) {
+//                                case "/":
+//                                case "/explore":
+//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+//                                        tempMarker.icon = icons.iconG;
+//                                    } else {
+//                                        tempMarker.icon = icons.iconC;
+//
+//                                    }
+//                                    ;
+//                                    break;
+//                                case "/explore/Light":
+//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+//                                        tempMarker.icon = icons.iconTree;
+//                                    } else {
+//                                        tempMarker.icon = icons.iconTreeYellow;
+//
+//                                    }
+//                                    break;
+//
+//
+//                            }
 
-                                    }
-                                    break;
-
-
-                            }
 
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
@@ -171,7 +173,7 @@ angular.module('openSenseMapApp')
                     } else {
                         return false;
                     }
-                }
+                };
 
                 if ($routeParams.boxid !== undefined) {
                     //TODO find boxid
@@ -224,40 +226,40 @@ angular.module('openSenseMapApp')
 
                         }
                     });
-                }
+                };
 
                 $scope.tmpSensor = {};
                 $scope.filterOpts = [
                     {name: 'Phänomen'},
-                    {name: 'Name'},
+                    {name: 'Name'}
                 ];
                 $scope.selectedFilterOption = 'Phänomen';
-                var icons = {
-                    iconC: {
-                        type: 'awesomeMarker',
-                        prefix: 'fa',
-                        icon: 'cube',
-                        markerColor: 'red',
-                    },
-                    iconG: {
-                        type: 'awesomeMarker',
-                        prefix: 'fa',
-                        icon: 'cube',
-                        markerColor: 'green'
-                    },
-                    iconTree: {
-                        type: 'awesomeMarker',
-                        prefix: 'fa',
-                        icon: 'area-chart',
-                        markerColor: 'orange'
-                    },
-                    iconTreeYellow: {
-                        type: 'awesomeMarker',
-                        prefix: 'fa',
-                        icon: 'area-chart',
-                        markerColor: 'red'
-                    }
-                };
+//                var icons = {
+//                    iconC: {
+//                        type: 'awesomeMarker',
+//                        prefix: 'fa',
+//                        icon: 'cube',
+//                        markerColor: 'red'
+//                    },
+//                    iconG: {
+//                        type: 'awesomeMarker',
+//                        prefix: 'fa',
+//                        icon: 'cube',
+//                        markerColor: 'green'
+//                    },
+//                    iconTree: {
+//                        type: 'awesomeMarker',
+//                        prefix: 'fa',
+//                        icon: 'area-chart',
+//                        markerColor: 'orange'
+//                    },
+//                    iconTreeYellow: {
+//                        type: 'awesomeMarker',
+//                        prefix: 'fa',
+//                        icon: 'area-chart',
+//                        markerColor: 'red'
+//                    }
+//                };
                 $scope.openDialog = function () {
                     $scope.launchTemp = ngDialog.open({
                         template: '../../views/app_info_modal.html',
@@ -268,7 +270,7 @@ angular.module('openSenseMapApp')
                                 // controller logic
                             }]
                     });
-                }
+                };
 
                 if ($location.path() === "/launch") {
                     ngDialog.open({
@@ -445,8 +447,8 @@ angular.module('openSenseMapApp')
                     $scope.difference = Math.round(($scope.currentTime - $scope.date) / 60000);
                     return $scope.difference;
                 };
-                $scope.$on('leafletDirectiveMarker.click', function (e, args) {
-
+                $scope.$on('leafletDirectiveMarker.map_main.click', function (e, args) {
+                    alert('click');
                     // Args will contain the marker name and other relevant information
                     //console.log(args);
                     $scope.sidebarActive = true;
@@ -475,28 +477,28 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-                            switch ($location.path()) {
-                                case "/":
-                                case "/explore":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconG;
-                                    } else {
-                                        tempMarker.icon = icons.iconC;
-
-                                    }
-                                    ;
-                                    break;
-                                case "/explore/Light":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconTree;
-                                    } else {
-                                        tempMarker.icon = icons.iconTreeYellow;
-
-                                    }
-                                    break;
-
-
-                            }
+//                            switch ($location.path()) {
+//                                case "/":
+//                                case "/explore":
+//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+//                                        tempMarker.icon = icons.iconG;
+//                                    } else {
+//                                        tempMarker.icon = icons.iconC;
+//
+//                                    }
+//                                    ;
+//                                    break;
+//                                case "/explore/Light":
+//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+//                                        tempMarker.icon = icons.iconTree;
+//                                    } else {
+//                                        tempMarker.icon = icons.iconTreeYellow;
+//
+//                                    }
+//                                    break;
+//
+//
+//                            }
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
                             tempMarker.image = response[i].image;
