@@ -1,8 +1,8 @@
 'use strict';
 watch;
 angular.module('openSenseMapApp')
-        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'leafletMarkerEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, leafletMarkerEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
                 $scope.selectedMarkerData = [];
@@ -51,27 +51,31 @@ angular.module('openSenseMapApp')
                     zoom: 6
                 };
                 //##############################added
-                $scope.paths = {
-                    buffer: {
-                        weight: 2,
-                        color: '#ff612f',
-                        radius: 200,
-                        type: 'circleMarker'
-                    }
-                };
+
                 $scope.events = {
                     map: {
-                        enable: ['click'],
+                        enable: leafletMapEvents.getAvailableMapEvents(),
                         logic: 'emit'
                     }
                 };
-                $scope.$on('leafletDirectiveMap.click', function (event, args) {
-                    watch = args;
-                    var latlng= args.leafletEvent.latlng;
-                    alert('clicked'+ latlng);
-                    $scope.paths.buffer.latlongs=latlng;
-                });
 
+                $scope.paths = {};
+                $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
+                    $scope.paths = {
+                        buffer: {
+                            weight: 2,
+                            color: '#ff612f',
+                            radius: 200,
+                            type: 'circleMarker',
+//                            latlngs: {lat: latlng.lat, lng: latlng.lng}
+                            latlngs: $scope.center,
+                            clickable: false
+                        }
+                    };
+                });
+                 $scope.hideBuffer = function (){
+                   $scope.paths = {};  
+                 };
                 //############################end added
                 $scope.counter = 3;
                 $scope.timeout;
@@ -98,13 +102,11 @@ angular.module('openSenseMapApp')
                         }
                     }
                 };
-
                 $scope.launch = function () {
                     document.getElementById("rocket").remove();
                     document.getElementById("zundungheader").innerHTML = "<strong>DREI</strong>";
                     $scope.timeout = $timeout($scope.countdown, 1000);
                 };
-
                 var photonikBoxes = ["54e8e1dea807ade00f880978",
                     "54d7c2361b93e97007516a19",
                     "54e5e5e5a807ade00f851f81",
@@ -124,7 +126,6 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-
 //                              switch ($location.path()) {
 //                                case "/":
 //                                case "/explore":
@@ -174,7 +175,6 @@ angular.module('openSenseMapApp')
                         return false;
                     }
                 };
-
                 if ($routeParams.boxid !== undefined) {
                     //TODO find boxid
                     OpenSenseBox.query({boxId: $routeParams.boxid}, function (response) {
@@ -227,7 +227,6 @@ angular.module('openSenseMapApp')
                         }
                     });
                 };
-
                 $scope.tmpSensor = {};
                 $scope.filterOpts = [
                     {name: 'Phänomen'},
@@ -271,7 +270,6 @@ angular.module('openSenseMapApp')
                             }]
                     });
                 };
-
                 if ($location.path() === "/launch") {
                     ngDialog.open({
                         template: '../../views/launch_modal.html',
