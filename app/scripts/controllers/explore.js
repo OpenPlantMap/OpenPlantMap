@@ -1,5 +1,4 @@
 'use strict';
-watch;
 angular.module('openSenseMapApp')
         .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
             function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
@@ -126,28 +125,28 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-//                              switch ($location.path()) {
-//                                case "/":
-//                                case "/explore":
-//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-//                                        tempMarker.icon = icons.iconG;
-//                                    } else {
-//                                        tempMarker.icon = icons.iconC;
-//
-//                                    }
-//                                    ;
-//                                    break;
-//                                case "/explore/Light":
-//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-//                                        tempMarker.icon = icons.iconTree;
-//                                    } else {
-//                                        tempMarker.icon = icons.iconTreeYellow;
-//
-//                                    }
-//                                    break;
-//
-//
-//                            }
+                              switch ($location.path()) {
+                                case "/":
+                                case "/explore":
+                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+                                        tempMarker.icon = icons.iconG;
+                                    } else {
+                                        tempMarker.icon = icons.iconC;
+
+                                    }
+                                    ;
+                                    break;
+                                case "/explore/Light":
+                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+                                        tempMarker.icon = icons.iconTree;
+                                    } else {
+                                        tempMarker.icon = icons.iconTreeYellow;
+
+                                    }
+                                    break;
+
+
+                            }
 
 
                             tempMarker.name = response[i].name;
@@ -233,32 +232,32 @@ angular.module('openSenseMapApp')
                     {name: 'Name'}
                 ];
                 $scope.selectedFilterOption = 'Phänomen';
-//                var icons = {
-//                    iconC: {
-//                        type: 'awesomeMarker',
-//                        prefix: 'fa',
-//                        icon: 'cube',
-//                        markerColor: 'red'
-//                    },
-//                    iconG: {
-//                        type: 'awesomeMarker',
-//                        prefix: 'fa',
-//                        icon: 'cube',
-//                        markerColor: 'green'
-//                    },
-//                    iconTree: {
-//                        type: 'awesomeMarker',
-//                        prefix: 'fa',
-//                        icon: 'area-chart',
-//                        markerColor: 'orange'
-//                    },
-//                    iconTreeYellow: {
-//                        type: 'awesomeMarker',
-//                        prefix: 'fa',
-//                        icon: 'area-chart',
-//                        markerColor: 'red'
-//                    }
-//                };
+                var icons = {
+                    iconC: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'cube',
+                        markerColor: 'red'
+                    },
+                    iconG: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'cube',
+                        markerColor: 'green'
+                    },
+                    iconTree: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'area-chart',
+                        markerColor: 'orange'
+                    },
+                    iconTreeYellow: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'area-chart',
+                        markerColor: 'red'
+                    }
+                };
                 $scope.openDialog = function () {
                     $scope.launchTemp = ngDialog.open({
                         template: '../../views/app_info_modal.html',
@@ -446,7 +445,6 @@ angular.module('openSenseMapApp')
                     return $scope.difference;
                 };
                 $scope.$on('leafletDirectiveMarker.map_main.click', function (e, args) {
-                    alert('click');
                     // Args will contain the marker name and other relevant information
                     //console.log(args);
                     $scope.sidebarActive = true;
@@ -475,28 +473,28 @@ angular.module('openSenseMapApp')
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-//                            switch ($location.path()) {
-//                                case "/":
-//                                case "/explore":
-//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-//                                        tempMarker.icon = icons.iconG;
-//                                    } else {
-//                                        tempMarker.icon = icons.iconC;
-//
-//                                    }
-//                                    ;
-//                                    break;
-//                                case "/explore/Light":
-//                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-//                                        tempMarker.icon = icons.iconTree;
-//                                    } else {
-//                                        tempMarker.icon = icons.iconTreeYellow;
-//
-//                                    }
-//                                    break;
-//
-//
-//                            }
+                            switch ($location.path()) {
+                                case "/":
+                                case "/explore":
+                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+                                        tempMarker.icon = icons.iconG;
+                                    } else {
+                                        tempMarker.icon = icons.iconC;
+
+                                    }
+                                    ;
+                                    break;
+                                case "/explore/Light":
+                                    if (_.contains(photonikBoxes, tempMarker.id)) {
+                                        tempMarker.icon = icons.iconTree;
+                                    } else {
+                                        tempMarker.icon = icons.iconTreeYellow;
+
+                                    }
+                                    break;
+
+
+                            }
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
                             tempMarker.image = response[i].image;
