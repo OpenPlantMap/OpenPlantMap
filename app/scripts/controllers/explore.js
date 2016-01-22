@@ -50,7 +50,8 @@ angular.module('openSenseMapApp')
                     zoom: 6
                 };
                 //##############################added
-
+var watch={};
+var watchArgs={};
                 $scope.events = {
                     map: {
                         enable: leafletMapEvents.getAvailableMapEvents(),
@@ -451,7 +452,7 @@ angular.module('openSenseMapApp')
                     $scope.detailsPanel = true;
                     $scope.filterPanel = false;
                     $scope.downloadPanel = false;
-                    $scope.selectedMarker = $scope.filteredMarkers[args.markerName]; // see explore.html:160
+                    $scope.selectedMarker = $scope.filteredMarkers[args.modelName]; // see explore.html:160
 
                     if ($scope.selectedMarker.image === undefined || $scope.selectedMarker.image === "") {
                         $scope.image = "placeholder.png";

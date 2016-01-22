@@ -28,8 +28,7 @@
     "angular-translate": "~2.7",
     "angular-translate-loader-static-files": "~2.7.1",
     "highcharts-release": "*",
-    "highcharts-ng": "*",
-    "multirange": "val-samonte/angular-multirange"
+    "highcharts-ng": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.3",
