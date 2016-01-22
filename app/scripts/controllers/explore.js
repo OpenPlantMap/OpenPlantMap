@@ -66,7 +66,7 @@ var watchArgs={};
                             weight: 2,
                             color: '#ff612f',
                             radius: 200,
-                            type: 'circleMarker',
+                            type: 'circle',
 //                            latlngs: {lat: latlng.lat, lng: latlng.lng}
                             latlngs: $scope.center,
                             clickable: false
@@ -76,6 +76,7 @@ var watchArgs={};
                  $scope.hideBuffer = function (){
                    $scope.paths = {};  
                  };
+
                 //############################end added
                 $scope.counter = 3;
                 $scope.timeout;

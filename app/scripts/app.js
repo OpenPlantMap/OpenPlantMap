@@ -20,7 +20,7 @@ angular
     'ui.checkbox',
     'highcharts-ng',
     'pascalprecht.translate',
-    'vds.multirange'
+    'ui.bootstrap-slider'
   ])
   .config(function ($routeProvider) {
     $routeProvider
