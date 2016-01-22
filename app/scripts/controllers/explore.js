@@ -50,8 +50,6 @@ angular.module('openSenseMapApp')
                     zoom: 6
                 };
                 //##############################added
-var watch={};
-var watchArgs={};
                 $scope.events = {
                     map: {
                         enable: leafletMapEvents.getAvailableMapEvents(),
@@ -65,17 +63,37 @@ var watchArgs={};
                         buffer: {
                             weight: 2,
                             color: '#ff612f',
-                            radius: 200,
                             type: 'circle',
-//                            latlngs: {lat: latlng.lat, lng: latlng.lng}
                             latlngs: $scope.center,
                             clickable: false
                         }
                     };
+                    adapt_Buffer_radius();
                 });
-                 $scope.hideBuffer = function (){
-                   $scope.paths = {};  
-                 };
+                function adapt_Buffer_radius() {
+                    leafletData.getMap().then(function (map) {
+                        var bounds = map.getBounds();
+                        var center = bounds.getCenter();
+                        var north = L.latLng(bounds.getNorth(), center.lng);
+                        var east = L.latLng(center.lat, bounds.getEast());
+                        var dist_vertical = center.distanceTo(north);
+                        var dist_horizontal = center.distanceTo(east);
+                        if (dist_vertical < dist_horizontal) {
+                            $scope.paths.buffer.radius = Math.round(dist_vertical);
+                        } else {
+                            $scope.paths.buffer.radius = Math.round(dist_horizontal);
+
+                        }
+                        //alert(dist_vertical + ", " + dist_horizontal);
+                    });
+                }
+                $scope.$on('leafletDirectiveMap.map_main.zoomend', function (event, args) {
+                    adapt_Buffer_radius();
+
+                });
+                $scope.hideBuffer = function () {
+                    $scope.paths = {};
+                };
 
                 //############################end added
                 $scope.counter = 3;
@@ -127,7 +145,7 @@ var watchArgs={};
                             tempMarker.lng = response[i].loc[0].geometry.coordinates[0];
                             tempMarker.lat = response[i].loc[0].geometry.coordinates[1];
                             tempMarker.id = response[i]._id;
-                              switch ($location.path()) {
+                            switch ($location.path()) {
                                 case "/":
                                 case "/explore":
                                     if (_.contains(photonikBoxes, tempMarker.id)) {

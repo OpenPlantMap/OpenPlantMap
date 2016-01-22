@@ -14,16 +14,20 @@
             <div style="display:flex;flex-direction: column;">
                 <div style="flex:1">
                     <div >Bounds</div>
-                    <vds-multirange ng-model="rangeLight_Bounds" views="viewBounds" view="0"></vds-multirange></div>
-                <div style="flex:1">
-                    <div >Months</div>
-                    <vds-multirange ng-model="rangeLight_Months" views="viewMonths" view="0"></vds-multirange></div>
-                <div style="flex:1">
-                    <div>Hours</div>
-                    <vds-multirange ng-model="rangeLight_Hours"  views="viewHours" view="0"></vds-multirange></div>
-            </div>
+                    <span slider  ng-model="slider_Buffer"  min="0" max="20" step="1" value="15" ></span>
+                    <div style="flex:1">
+                        <div >Months</div>
+                        <span slider  ng-model="slider_Buffer1"  min="0" max="20" step="1" value="15" ></span>
+                        <div style="flex:1">
+                            <div>Hours</div>
+                            <span slider  ng-model="slider_Buffer2"  min="0" max="20" step="1" value="15" ></span>
 
-        </div> <!-- end tabInfo pange -->
+                        </div>
+                    </div>
+                </div> <!-- end tabInfo pange -->
+            </div>       
+
+        </div>
         <div role="tabpanel" class="tab-pane" id="tabSoilTemperature">
             hello temp
         </div> <!-- end #tabMeasurements pane -->
@@ -33,9 +37,7 @@
         <div role="tabpanel" class="tab-pane" id="tabPH_Value">
 
         </div> <!-- end tabManage pange -->
-    </div>
-
-    <div>
 
     </div>
 </div>
+

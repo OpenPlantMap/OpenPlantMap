@@ -1,7 +1,7 @@
 'use strict';
 angular.module('openSenseMapApp')
-        .controller('ClassifyCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI', 'vdsMultirangeViews',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+        .controller('ClassifyCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
                 $scope.rangeLight_Bounds = [
                     {value: 0.25, name: 'shady/semi-shade'},
                     {value: 0.5, name: 'semi-shade/sunny'}
@@ -14,7 +14,7 @@ angular.module('openSenseMapApp')
                     {value: 8 / 24, name: 'start'},
                     {value: 19 / 24, name: 'end'}
                 ];
-                $scope.viewHours = vdsMultirangeViews.TIME;
+ //               $scope.viewHours = vdsMultirangeViews.TIME;
                 $scope.viewMonths = [
                     {
                         zoom: 0.8,
