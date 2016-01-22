@@ -7,12 +7,12 @@ angular.module('openSenseMapApp')
                     {value: 0.5, name: 'semi-shade/sunny'}
                 ];
                 $scope.rangeLight_Months = [
-                    {value: 2/11, name: 'start'},
-                    {value:  8/11, name: 'end'}
+                    {value: 2 / 11, name: 'start'},
+                    {value: 8 / 11, name: 'end'}
                 ];
                 $scope.rangeLight_Hours = [
-                    {value: 8/24, name: 'start'},
-                    {value: 19/24, name: 'end'}
+                    {value: 8 / 24, name: 'start'},
+                    {value: 19 / 24, name: 'end'}
                 ];
                 $scope.viewHours = vdsMultirangeViews.TIME;
                 $scope.viewMonths = [
@@ -42,10 +42,10 @@ angular.module('openSenseMapApp')
                                 value: 1 / 16,
                                 // function to transform your value into labels | true: value itself | false: none
                                 labeller: function (n) {
-                                    return Math.round(n*16*25);
+                                    return Math.round(n * 16 * 25);
                                 }
                             },
-                              {
+                            {
                                 value: 1 / 32
                             }
 

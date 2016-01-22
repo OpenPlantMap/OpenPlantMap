@@ -8,6 +8,6 @@
  * Factory in the openSenseMapApp.
  */
 angular.module('openSenseMapApp')
-  .factory('OpenSenseBox', function ($resource, OpenSenseBoxAPI) {
-      return $resource(OpenSenseBoxAPI.url+'/boxes/:boxId', {}, {'query': {method: 'GET', isArray: false}});
-    });
+        .factory('OpenSenseBox', function ($resource, OpenSenseBoxAPI) {
+            return $resource(OpenSenseBoxAPI.url + '/boxes/:boxId', {}, {'query': {method: 'GET', isArray: false}});
+        });
