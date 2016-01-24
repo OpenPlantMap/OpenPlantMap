@@ -58,7 +58,7 @@ angular.module('openSenseMapApp')
                 };
 
                 $scope.paths = {};
-                $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
+                function addBuffer(){
                     $scope.paths = {
                         buffer: {
                             weight: 2,
@@ -68,6 +68,9 @@ angular.module('openSenseMapApp')
                             clickable: false
                         }
                     };
+                }
+                $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
+                    addBuffer();
                     adapt_Buffer_radius();
                 });
                 function adapt_Buffer_radius() {
@@ -91,8 +94,14 @@ angular.module('openSenseMapApp')
                     adapt_Buffer_radius();
 
                 });
-                $scope.hideBuffer = function () {
-                    $scope.paths = {};
+                $scope.hide_show_Buffer = function () {
+                    if (typeof $scope.paths.buffer !== 'undefined'){
+                        $scope.paths = {};
+                    }
+                   else{
+                       addBuffer();
+                       adapt_Buffer_radius();
+                   }
                 };
 
                 //############################end added
