@@ -58,7 +58,7 @@ angular.module('openSenseMapApp')
                 };
 
                 $scope.paths = {};
-                function addBuffer(){
+                function addBuffer() {
                     $scope.paths = {
                         buffer: {
                             weight: 2,
@@ -71,9 +71,37 @@ angular.module('openSenseMapApp')
                 }
                 $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
                     addBuffer();
-                    adapt_Buffer_radius();
+                    adapt_Buffer_radius(select_all_Boxes_in_Buffer);
                 });
-                function adapt_Buffer_radius() {
+                function select_all_Boxes_in_Buffer() {
+                    var boxes = $scope.markers;
+                    var boxes_on_screen = [];
+                    $scope.boxes_in_buffer = [];
+                    var buffer_center_point = L.latLng($scope.center.lat, $scope.center.lng);
+                    var radius = $scope.paths.buffer.radius;
+                    leafletData.getMap().then(function (map) {
+                        var bounds = map.getBounds();
+                        //select all boxes which are visualised on screen
+                        for (var i = 0; i < boxes.length; i++) {
+                            var point = L.latLng(boxes[i].lat, boxes[i].lng);
+                            if (bounds.contains(point)) {
+                                boxes_on_screen.push(boxes[i]);
+                            }
+                            ;
+                        }
+                        //select all boxes which are within the buffer
+                        for (var i = 0; i < boxes_on_screen.length; i++) {
+                            var point = L.latLng(boxes_on_screen[i].lat, boxes_on_screen[i].lng);
+                            if (buffer_center_point.distanceTo(point) <= radius) {
+                                $scope.boxes_in_buffer.push(boxes_on_screen[i]);
+                            }
+                            ;
+                        }
+                        alert($scope.boxes_in_buffer.length);
+                    });
+
+                }
+                function adapt_Buffer_radius(furtherWork) {
                     leafletData.getMap().then(function (map) {
                         var bounds = map.getBounds();
                         var center = bounds.getCenter();
@@ -87,6 +115,7 @@ angular.module('openSenseMapApp')
                             $scope.paths.buffer.radius = Math.round(dist_horizontal);
 
                         }
+                        furtherWork();
                         //alert(dist_vertical + ", " + dist_horizontal);
                     });
                 }
@@ -95,13 +124,12 @@ angular.module('openSenseMapApp')
 
                 });
                 $scope.hide_show_Buffer = function () {
-                    if (typeof $scope.paths.buffer !== 'undefined'){
+                    if (typeof $scope.paths.buffer !== 'undefined') {
                         $scope.paths = {};
+                    } else {
+                        addBuffer();
+                        adapt_Buffer_radius();
                     }
-                   else{
-                       addBuffer();
-                       adapt_Buffer_radius();
-                   }
                 };
 
                 //############################end added
