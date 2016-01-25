@@ -56,7 +56,7 @@ angular.module('openSenseMapApp')
                         logic: 'emit'
                     }
                 };
-
+                $scope.marker_in_buffer = [];
                 $scope.paths = {};
                 function addBuffer() {
                     $scope.paths = {
@@ -71,34 +71,68 @@ angular.module('openSenseMapApp')
                 }
                 $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
                     addBuffer();
-                    adapt_Buffer_radius(select_all_Boxes_in_Buffer);
+                    adapt_Buffer_radius(select_all_Markers_in_Buffer);
                 });
-                function select_all_Boxes_in_Buffer() {
-                    var boxes = $scope.markers;
-                    var boxes_on_screen = [];
-                    $scope.boxes_in_buffer = [];
+                function select_all_Markers_in_Buffer() {
+                    var marker = $scope.markers;
+                    var marker_on_screen = [];
+                    $scope.marker_in_buffer = [];
                     var buffer_center_point = L.latLng($scope.center.lat, $scope.center.lng);
                     var radius = $scope.paths.buffer.radius;
                     leafletData.getMap().then(function (map) {
                         var bounds = map.getBounds();
                         //select all boxes which are visualised on screen
-                        for (var i = 0; i < boxes.length; i++) {
-                            var point = L.latLng(boxes[i].lat, boxes[i].lng);
+                        for (var i = 0; i < marker.length; i++) {
+                            var point = L.latLng(marker[i].lat, marker[i].lng);
                             if (bounds.contains(point)) {
-                                boxes_on_screen.push(boxes[i]);
+                                marker_on_screen.push(i);
+                            } else {
+                                deselect_object_in_buffer(i);
                             }
-                            ;
+
                         }
                         //select all boxes which are within the buffer
-                        for (var i = 0; i < boxes_on_screen.length; i++) {
-                            var point = L.latLng(boxes_on_screen[i].lat, boxes_on_screen[i].lng);
+                        for (var i = 0; i < marker_on_screen.length; i++) {
+                            var point = L.latLng(marker[marker_on_screen[i]].lat, marker[marker_on_screen[i]].lng);
                             if (buffer_center_point.distanceTo(point) <= radius) {
-                                $scope.boxes_in_buffer.push(boxes_on_screen[i]);
+                                $scope.marker_in_buffer.push(marker_on_screen[i]);
+                                select_object_in_buffer(marker_on_screen[i]);
+                            } else {
+                                deselect_object_in_buffer(marker_on_screen[i]);
                             }
-                            ;
+
                         }
-                        alert($scope.boxes_in_buffer.length);
+//                        alert($scope.marker_in_buffer.length);
                     });
+
+                }
+                function select_object_in_buffer(id) {
+                    switch ($scope.markers[id].icon.markerColor) {
+                        case 'red':
+                            $scope.markers[id].icon = icons.iconC_selected;
+                            break;
+                        case 'green':
+                            $scope.markers[id].icon = icons.iconG_selected;
+                            break;
+                        default:
+                            $scope.markers[id].icon = icons.iconG_selected;
+
+                    }
+
+
+                }
+                function deselect_object_in_buffer(id) {
+                    switch ($scope.markers[id].icon.markerColor) {
+                        case 'red':
+                            $scope.markers[id].icon = icons.iconC;
+                            break;
+                        case 'green':
+                            $scope.markers[id].icon = icons.iconG;
+                            break;
+                        default:
+                            $scope.markers[id].icon = icons.iconG;
+
+                    }
 
                 }
                 function adapt_Buffer_radius(furtherWork) {
@@ -115,12 +149,19 @@ angular.module('openSenseMapApp')
                             $scope.paths.buffer.radius = Math.round(dist_horizontal);
 
                         }
-                        furtherWork();
+                        if (typeof furtherWork !== 'undefined') {
+                            furtherWork();
+                        }
+
                         //alert(dist_vertical + ", " + dist_horizontal);
                     });
                 }
                 $scope.$on('leafletDirectiveMap.map_main.zoomend', function (event, args) {
-                    adapt_Buffer_radius();
+                    adapt_Buffer_radius(select_all_Markers_in_Buffer);
+
+                });
+                $scope.$on('leafletDirectiveMap.map_main.moveend', function (event, args) {
+                    adapt_Buffer_radius(select_all_Markers_in_Buffer);
 
                 });
                 $scope.hide_show_Buffer = function () {
@@ -296,10 +337,24 @@ angular.module('openSenseMapApp')
                         icon: 'cube',
                         markerColor: 'red'
                     },
+                    iconC_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'cube',
+                        iconColor: 'yellow',
+                        markerColor: 'red'
+                    },
                     iconG: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
                         icon: 'cube',
+                        markerColor: 'green'
+                    },
+                    iconG_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'cube',
+                        iconColor: 'yellow',
                         markerColor: 'green'
                     },
                     iconTree: {
