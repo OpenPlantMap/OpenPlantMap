@@ -135,6 +135,22 @@ angular.module('openSenseMapApp')
                     }
 
                 }
+                function deselect_all_objects() {
+                    var marker = $scope.markers;
+                    for (var i = 0; i < marker.length; i++) {
+                        switch ($scope.markers[i].icon.markerColor) {
+                            case 'red':
+                                $scope.markers[i].icon = icons.iconC;
+                                break;
+                            case 'green':
+                                $scope.markers[i].icon = icons.iconG;
+                                break;
+                            default:
+                                $scope.markers[i].icon = icons.iconG;
+
+                        }
+                    }
+                }
                 function adapt_Buffer_radius(furtherWork) {
                     leafletData.getMap().then(function (map) {
                         var bounds = map.getBounds();
@@ -167,6 +183,7 @@ angular.module('openSenseMapApp')
                 $scope.hide_show_Buffer = function () {
                     if (typeof $scope.paths.buffer !== 'undefined') {
                         $scope.paths = {};
+                        deselect_all_objects();
                     } else {
                         addBuffer();
                         adapt_Buffer_radius();
