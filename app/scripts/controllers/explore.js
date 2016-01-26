@@ -104,51 +104,58 @@ angular.module('openSenseMapApp')
                         }
 //                        alert($scope.marker_in_buffer.length);
                     });
-
                 }
                 function select_object_in_buffer(id) {
-                    switch ($scope.markers[id].icon.markerColor) {
-                        case 'red':
-                            $scope.markers[id].icon = icons.iconC_selected;
+                    switch ($scope.markers[id].icon.icon) {
+                        case 'cube':
+                            $scope.markers[id].icon = icons.senseBox_selected;
                             break;
-                        case 'green':
-                            $scope.markers[id].icon = icons.iconG_selected;
+                        case 'tree':
+                            $scope.markers[id].icon = icons.plant_selected;
                             break;
-                        default:
-                            $scope.markers[id].icon = icons.iconG_selected;
-
+                        case 'tint':
+                            $scope.markers[id].icon = icons.moisture_selected;
+                            break;
+                        case 'lightbulb-o':
+                            $scope.markers[id].icon = icons.light_selected;
+                            break;
+                        case 'area-chart':
+                            $scope.markers[id].icon = icons.temperature_selected;
+                            break;
+                        case 'bar-chart':
+                            $scope.markers[id].icon = icons.ph_selected;
+                            break;
                     }
 
 
                 }
                 function deselect_object_in_buffer(id) {
-                    switch ($scope.markers[id].icon.markerColor) {
-                        case 'red':
-                            $scope.markers[id].icon = icons.iconC;
+                    switch ($scope.markers[id].icon.icon) {
+                        case 'cube':
+                            $scope.markers[id].icon = icons.senseBox;
                             break;
-                        case 'green':
-                            $scope.markers[id].icon = icons.iconG;
+                        case 'tree':
+                            $scope.markers[id].icon = icons.plant;
                             break;
-                        default:
-                            $scope.markers[id].icon = icons.iconG;
-
+                        case 'tint':
+                            $scope.markers[id].icon = icons.moisture;
+                            break;
+                        case 'lightbulb-o':
+                            $scope.markers[id].icon = icons.light;
+                            break;
+                        case 'area-chart':
+                            $scope.markers[id].icon = icons.temperature;
+                            break;
+                        case 'bar-chart':
+                            $scope.markers[id].icon = icons.ph;
+                            break;
                     }
 
                 }
                 function deselect_all_objects() {
                     var marker = $scope.markers;
                     for (var i = 0; i < marker.length; i++) {
-                        switch ($scope.markers[i].icon.markerColor) {
-                            case 'red':
-                                $scope.markers[i].icon = icons.iconC;
-                                break;
-                            case 'green':
-                                $scope.markers[i].icon = icons.iconG;
-                                break;
-                            default:
-                                $scope.markers[i].icon = icons.iconG;
-
-                        }
+                        deselect_object_in_buffer(i);
                     }
                 }
                 function adapt_Buffer_radius(furtherWork) {
@@ -163,7 +170,6 @@ angular.module('openSenseMapApp')
                             $scope.paths.buffer.radius = Math.round(dist_vertical);
                         } else {
                             $scope.paths.buffer.radius = Math.round(dist_horizontal);
-
                         }
                         if (typeof furtherWork !== 'undefined') {
                             furtherWork();
@@ -174,11 +180,9 @@ angular.module('openSenseMapApp')
                 }
                 $scope.$on('leafletDirectiveMap.map_main.zoomend', function (event, args) {
                     adapt_Buffer_radius(select_all_Markers_in_Buffer);
-
                 });
                 $scope.$on('leafletDirectiveMap.map_main.moveend', function (event, args) {
                     adapt_Buffer_radius(select_all_Markers_in_Buffer);
-
                 });
                 $scope.hide_show_Buffer = function () {
                     if (typeof $scope.paths.buffer !== 'undefined') {
@@ -186,10 +190,9 @@ angular.module('openSenseMapApp')
                         deselect_all_objects();
                     } else {
                         addBuffer();
-                        adapt_Buffer_radius();
+                        adapt_Buffer_radius(select_all_Markers_in_Buffer);
                     }
                 };
-
                 //############################end added
                 $scope.counter = 3;
                 $scope.timeout;
@@ -221,17 +224,6 @@ angular.module('openSenseMapApp')
                     document.getElementById("zundungheader").innerHTML = "<strong>DREI</strong>";
                     $scope.timeout = $timeout($scope.countdown, 1000);
                 };
-                var photonikBoxes = ["54e8e1dea807ade00f880978",
-                    "54d7c2361b93e97007516a19",
-                    "54e5e5e5a807ade00f851f81",
-                    "54e5e723a807ade00f852049",
-                    "54e9f616a807ade00f89d3cf",
-                    "54e4c395a807ade00f84e6e0",
-                    "54e6fc60a807ade00f85a918",
-                    "54e86f19a807ade00f877342",
-                    "54e7a5faa807ade00f868aab",
-                    "54eb6d1ea807ade00f8c459e"
-                ];
                 $scope.$on('ngDialog.closing', function (e, $dialog) {
                     OpenSenseBoxes.query(function (response) {
                         for (var i = 0; i <= response.length - 1; i++) {
@@ -243,27 +235,21 @@ angular.module('openSenseMapApp')
                             switch ($location.path()) {
                                 case "/":
                                 case "/explore":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconG;
-                                    } else {
-                                        tempMarker.icon = icons.iconC;
-
-                                    }
-                                    ;
+                                    tempMarker.icon = icons.senseBox;
                                     break;
                                 case "/explore/Light":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconTree;
-                                    } else {
-                                        tempMarker.icon = icons.iconTreeYellow;
-
-                                    }
+                                    tempMarker.icon = icons.light;
                                     break;
-
-
+                                case "/explore/Moisture":
+                                    tempMarker.icon = icons.moisture;
+                                    break;
+                                case "/explore/PH":
+                                    tempMarker.icon = icons.ph;
+                                    break;
+                                case "/explore/Temp":
+                                    tempMarker.icon = icons.temperature;
+                                    break;
                             }
-
-
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
                             tempMarker.image = response[i].image;
@@ -348,42 +334,82 @@ angular.module('openSenseMapApp')
                 ];
                 $scope.selectedFilterOption = 'Phänomen';
                 var icons = {
-                    iconC: {
+                    senseBox: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
                         icon: 'cube',
                         markerColor: 'red'
                     },
-                    iconC_selected: {
+                    senseBox_selected: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
                         icon: 'cube',
                         iconColor: 'yellow',
                         markerColor: 'red'
                     },
-                    iconG: {
+                    plant: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
-                        icon: 'cube',
+                        icon: 'tree',
                         markerColor: 'green'
                     },
-                    iconG_selected: {
+                    plant_selected: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
-                        icon: 'cube',
+                        icon: 'tree',
                         iconColor: 'yellow',
                         markerColor: 'green'
                     },
-                    iconTree: {
+                    light: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
-                        icon: 'area-chart',
+                        icon: 'lightbulb-o',
                         markerColor: 'orange'
                     },
-                    iconTreeYellow: {
+                    light_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'lightbulb-o',
+                        iconColor: 'yellow',
+                        markerColor: 'orange'
+                    },
+                    moisture: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'tint',
+                        markerColor: 'blue'
+                    },
+                    moisture_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'tint',
+                        iconColor: 'yellow',
+                        markerColor: 'blue'
+                    },
+                    temperature: {
                         type: 'awesomeMarker',
                         prefix: 'fa',
                         icon: 'area-chart',
+                        markerColor: 'red'
+                    },
+                    temperature_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'area-chart',
+                        iconColor: 'yellow',
+                        markerColor: 'red'
+                    },
+                    ph: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'bar-chart',
+                        markerColor: 'red'
+                    },
+                    ph_selected: {
+                        type: 'awesomeMarker',
+                        prefix: 'fa',
+                        icon: 'bar-chart',
+                        iconColor: 'yellow',
                         markerColor: 'red'
                     }
                 };
@@ -605,24 +631,20 @@ angular.module('openSenseMapApp')
                             switch ($location.path()) {
                                 case "/":
                                 case "/explore":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconG;
-                                    } else {
-                                        tempMarker.icon = icons.iconC;
-
-                                    }
-                                    ;
+                                    tempMarker.icon = icons.senseBox;
                                     break;
                                 case "/explore/Light":
-                                    if (_.contains(photonikBoxes, tempMarker.id)) {
-                                        tempMarker.icon = icons.iconTree;
-                                    } else {
-                                        tempMarker.icon = icons.iconTreeYellow;
-
-                                    }
+                                    tempMarker.icon = icons.light;
                                     break;
-
-
+                                case "/explore/Moisture":
+                                    tempMarker.icon = icons.moisture;
+                                    break;
+                                case "/explore/PH":
+                                    tempMarker.icon = icons.ph;
+                                    break;
+                                case "/explore/Temp":
+                                    tempMarker.icon = icons.temperature;
+                                    break;
                             }
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
