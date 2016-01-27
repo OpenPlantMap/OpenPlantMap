@@ -193,6 +193,40 @@ angular.module('openSenseMapApp')
                         adapt_Buffer_radius(select_all_Markers_in_Buffer);
                     }
                 };
+                $scope.layers = {
+                    baselayers: {
+                        mapQuest: {
+                            name: 'mapQuest',
+                            type: 'xyz',
+                            url: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
+                            layerOptions: {
+                                subdomains: "1234",
+                                //attribution in info modal
+                                detectRetina: true,
+                                reuseTiles: true
+                            }
+                        }
+                    },
+                    overlays: {
+                        senseBox: {
+                            type: 'group',
+                            name: 'senseBox',
+                            visible: true
+                        },
+                        plant: {
+                            type: 'group',
+                            name: 'plant',
+                            visible: true
+
+                        }
+                    }
+                };
+                $scope.hide_show_SenseBoxes = function () {
+                    $scope.layers.overlays.senseBox.visible = !$scope.layers.overlays.senseBox.visible;
+                };
+                $scope.hide_show_Plants = function () {
+                    $scope.layers.overlays.plant.visible = !$scope.layers.overlays.plant.visible;
+                };
                 //############################end added
                 $scope.counter = 3;
                 $scope.timeout;
@@ -253,6 +287,7 @@ angular.module('openSenseMapApp')
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
                             tempMarker.image = response[i].image;
+                            tempMarker.layer = 'senseBox';
                             for (var j = response[i].sensors.length - 1; j >= 0; j--) {
                                 tempMarker.phenomenons.push(response[i].sensors[j].title);
                             }
@@ -584,12 +619,10 @@ angular.module('openSenseMapApp')
                 }
 
                 $scope.defaults = {
-                    tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
-                    tileLayerOptions: {
-                        subdomains: "1234",
-                        //attribution in info modal
-                        detectRetina: true,
-                        reuseTiles: true
+                    controls: {
+                        layers: {
+                            visible: false
+                        }
                     },
                     scrollWheelZoom: true
                 };
@@ -649,6 +682,7 @@ angular.module('openSenseMapApp')
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
                             tempMarker.image = response[i].image;
+                            tempMarker.layer = 'senseBox';
                             for (var j = response[i].sensors.length - 1; j >= 0; j--) {
                                 tempMarker.phenomenons.push(response[i].sensors[j].title);
                             }
