@@ -63,7 +63,7 @@ angular.module('openSenseMapApp')
                         buffer: {
                             weight: 2,
                             color: '#ff612f',
-                            type: 'circle',
+                            type: 'circleMarker',
                             latlngs: $scope.center,
                             clickable: false
                         }
@@ -75,35 +75,29 @@ angular.module('openSenseMapApp')
                 });
                 function select_all_Markers_in_Buffer() {
                     var marker = $scope.markers;
-                    var marker_on_screen = [];
                     $scope.marker_in_buffer = [];
-                    var buffer_center_point = L.latLng($scope.center.lat, $scope.center.lng);
                     var radius = $scope.paths.buffer.radius;
                     leafletData.getMap().then(function (map) {
-                        var bounds = map.getBounds();
-                        //select all boxes which are visualised on screen
+                        var buffer_center_latlng = L.latLng($scope.center.lat, $scope.center.lng);
+                        var buffer_center_point = map.project(buffer_center_latlng);
+                        //select all boxes which are within the buffer
                         for (var i = 0; i < marker.length; i++) {
-                            var point = L.latLng(marker[i].lat, marker[i].lng);
-                            if (bounds.contains(point)) {
-                                marker_on_screen.push(i);
+                            var latlng = L.latLng(marker[i].lat, marker[i].lng);
+                            var point = map.project(latlng);
+                            if (getDistance(buffer_center_point, point) <= radius) {
+                                $scope.marker_in_buffer.push(i);
+                                select_object_in_buffer(i);
                             } else {
                                 deselect_object_in_buffer(i);
                             }
 
                         }
-                        //select all boxes which are within the buffer
-                        for (var i = 0; i < marker_on_screen.length; i++) {
-                            var point = L.latLng(marker[marker_on_screen[i]].lat, marker[marker_on_screen[i]].lng);
-                            if (buffer_center_point.distanceTo(point) <= radius) {
-                                $scope.marker_in_buffer.push(marker_on_screen[i]);
-                                select_object_in_buffer(marker_on_screen[i]);
-                            } else {
-                                deselect_object_in_buffer(marker_on_screen[i]);
-                            }
-
-                        }
 //                        alert($scope.marker_in_buffer.length);
                     });
+                }
+                function getDistance(p0, p1) {
+                    // Pythagorean theorem
+                    return Math.sqrt(Math.pow(p1.x - p0.x, 2) + Math.pow(p1.y - p0.y, 2));
                 }
                 function select_object_in_buffer(id) {
                     switch ($scope.markers[id].icon.icon) {
@@ -162,10 +156,14 @@ angular.module('openSenseMapApp')
                     leafletData.getMap().then(function (map) {
                         var bounds = map.getBounds();
                         var center = bounds.getCenter();
+                        var point_center = map.project(center);
                         var north = L.latLng(bounds.getNorth(), center.lng);
+                        var point_north = map.project(north);
                         var east = L.latLng(center.lat, bounds.getEast());
-                        var dist_vertical = center.distanceTo(north);
-                        var dist_horizontal = center.distanceTo(east);
+                        var point_east = map.project(east);
+                        var dist_vertical = getDistance(point_center, point_north);
+                        var dist_horizontal = getDistance(point_center, point_east);
+
                         if (dist_vertical < dist_horizontal) {
                             $scope.paths.buffer.radius = Math.round(dist_vertical);
                         } else {
