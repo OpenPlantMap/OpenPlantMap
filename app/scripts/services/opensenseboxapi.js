@@ -10,8 +10,9 @@
 angular.module('openSenseMapApp')
   .factory('OpenSenseBoxAPI', function ($resource) {
   	var api = {
-  		url: 'http://opensensemap.org:8000'
+  		//url: 'http://opensensemap.org:8000'
   		//url: 'http://localhost:8000'
+  		url: 'http://openpmap.shaula.uberspace.de/api'
   	};
     return api;
   });
