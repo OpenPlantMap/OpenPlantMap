@@ -1,199 +1,199 @@
 /* Space out content a bit */
 body {
-  padding-top: 50px;
-  padding-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 .center {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #zundung {
-  width: 100%;
-  line-height: 2.5;
+    width: 100%;
+    line-height: 2.5;
 }
 
 #map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding-left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-left: 0;
 }
 
 #map_main {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 #downloadlink {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 #downloadlink:hover {
-  color: white;
+    color: white;
 }
 
 .leaflet-top {
-  top: 50px;
+    top: 50px;
 }
 
 .app-info {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .app-info .fa-heart {
-  color: lightcoral;
+    color: lightcoral;
 }
 
 #app_info_button {
-  display: block;
-  position: absolute;
-  bottom: 25px;
-  left: 25px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 25px;
-  width: 25px;
-  height: 25px;
-  color: #fdfdfd;
-  background-color: #707070;
-  text-align: center;
-  border-radius: 15px;
+    display: block;
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    color: #fdfdfd;
+    background-color: #707070;
+    text-align: center;
+    border-radius: 15px;
 }
 #show_flowers {
-  display: block;
-  position: absolute;
-  bottom: 25px;
-  left: 60px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 25px;
-  width: 25px;
-  height: 25px;
-  color: #fdfdfd;
-  background-color: #707070;
-  text-align: center;
-  border-radius: 15px;
+    display: block;
+    position: absolute;
+    bottom: 25px;
+    left: 60px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    color: #fdfdfd;
+    background-color: #707070;
+    text-align: center;
+    border-radius: 15px;
 }
 #show_sensors {
-  display: block;
-  position: absolute;
-  bottom: 25px;
-  left: 95px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 25px;
-  width: 25px;
-  height: 25px;
-  color: #fdfdfd;
-  background-color: #707070;
-  text-align: center;
-  border-radius: 15px;
+    display: block;
+    position: absolute;
+    bottom: 25px;
+    left: 95px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    color: #fdfdfd;
+    background-color: #707070;
+    text-align: center;
+    border-radius: 15px;
 }
 #hide_Buffer {
-  display: block;
-  position: absolute;
-  bottom: 25px;
-  left: 130px;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 25px;
-  width: 25px;
-  height: 25px;
-  color: #fdfdfd;
-  background-color: white;
-  text-align: center;
-  border-radius: 15px;
+    display: block;
+    position: absolute;
+    bottom: 25px;
+    left: 130px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    color: #fdfdfd;
+    background-color: white;
+    text-align: center;
+    border-radius: 15px;
 }
 #app_info_button:hover {
-  background-color: #969696;
+    background-color: #969696;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .ngdialog.ngdialog-theme-custom {
-  padding-top: 125px;
-  padding-bottom: 125px;
+    padding-top: 125px;
+    padding-bottom: 125px;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-overlay {
-  background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.5);
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-content {
-  background: rgba(255,255,255,.9);
-  padding: 1.8em 2em;
-  width: 440px;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+    background: rgba(255,255,255,.9);
+    padding: 1.8em 2em;
+    width: 440px;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-message h2 {
-  font-size: 26px;
-  font-family: 'Montserrat', 'Helvetica', Arial, sans-serif;
-  line-height: 30px;
-  margin-bottom: 20px;
+    font-size: 26px;
+    font-family: 'Montserrat', 'Helvetica', Arial, sans-serif;
+    line-height: 30px;
+    margin-bottom: 20px;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-message {
-  font-size: 16px;
-  font-family: 'Source Sans Pro';
-  line-height: 22px;
+    font-size: 16px;
+    font-family: 'Source Sans Pro';
+    line-height: 22px;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-message ul {
-  padding: 0 0 5px 35px;
+    padding: 0 0 5px 35px;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-button.ngdialog-button-primary {
-  background: #27ae60;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+    background: #27ae60;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 
 .xxxl {
-  width: 100%;
+    width: 100%;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .fill {
-  width: 100%;
-  height: 480px;
+    width: 100%;
+    height: 480px;
 }
 
 .fullsize {
-  padding-left: 0px;
-  padding-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .register {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .editable-empty {
-  font-style: normal;
-  color: black;
+    font-style: normal;
+    color: black;
 }
 
 .editable-empty:hover, .editable-empty:focus {
-  font-style: normal;
-  color: black;
+    font-style: normal;
+    color: black;
 }
 
 /* MAP PAGE
@@ -202,72 +202,72 @@ a:hover {
 
 /* styling for function buttons on the left */
 .info {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
 }
 
 .leaflet-control-my-location {
-  width:26px;
-  height:26px;
-  background-color: #fff;
+    width:26px;
+    height:26px;
+    background-color: #fff;
 }
 
 .leaflet-control-my-location:hover {
-  background-color: #f4f4f4;
+    background-color: #f4f4f4;
 }
 
 .leaflet-control-attribution {
-  display:none;
+    display:none;
 }
 
 #sidebar {
-  position: absolute;
-  padding: 10px 0px 10px 0px;
-  width: 450px;
-  top: 50px;
-  right: 0;
-  height: calc(100% - 50px);
-  background: rgba(255, 255, 255, 0.9);
-  overflow: auto;
-  z-index: 99;
+    position: absolute;
+    padding: 10px 0px 10px 0px;
+    width: 450px;
+    top: 50px;
+    right: 0;
+    height: calc(100% - 50px);
+    background: rgba(255, 255, 255, 0.9);
+    overflow: auto;
+    z-index: 99;
 }
 @media screen and (max-width: 600px) {
-  #sidebar {
-    width:100%;
-  }
+    #sidebar {
+        width:100%;
+    }
 }
 
 #sidebar .row {
-  margin-left: 15px;
-  margin-right: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 /* styling for sidebar */
 div.box {
-  position: absolute;
-  top: 60px;
-  right: 1em;
-  z-index: 100;
-  padding: 1em;
-  width: 450px;
-  height:calc(100%-150px);
-  overflow:scroll;
+    position: absolute;
+    top: 60px;
+    right: 1em;
+    z-index: 100;
+    padding: 1em;
+    width: 450px;
+    height:calc(100%-150px);
+    overflow:scroll;
 }
 
 .fa.close {
-  color:grey;
+    color:grey;
 }
 
 .fa.close:hover {
-  color:black;
+    color:black;
 }
 
 .col-lg-offset-0-5 {
-  left: 4.166666667%;
+    left: 4.166666667%;
 }
 
 #register-map .leaflet-top {
-  top: 0px;
+    top: 0px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -280,21 +280,21 @@ div.box {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
 }
 
 /* Customize container */
@@ -305,137 +305,205 @@ div.box {
 }*/
 
 .container {
-  min-width: 100%;
+    min-width: 100%;
 }
 
 .container-narrow > hr {
-  margin: 30px 0;
+    margin: 30px 0;
 }
 
 /* Main marketing message and sign up button */
 .jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
 }
 .jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+    font-size: 21px;
+    padding: 14px 24px;
 }
 
 /* Supporting marketing content */
 .marketing {
-  margin: 40px 0;
+    margin: 40px 0;
 }
 .marketing p + h4 {
-  margin-top: 28px;
+    margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
 }
 
 .form-signin {
-  max-width: 440px;
-  padding: 15px;
-  margin: 0 auto;
+    max-width: 440px;
+    padding: 15px;
+    margin: 0 auto;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .form-signin .checkbox {
-  font-weight: normal;
+    font-weight: normal;
 }
 .form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
 }
 .form-signin .form-control:focus {
-  z-index: 2;
+    z-index: 2;
 }
 
 .sborange {
-  background-color: #E77817;
+    background-color: #E77817;
 }
 
 .sbblue {
-  background-color: #5599FF;
+    background-color: #5599FF;
 }
 
 .sbmblue {
-  background-color: #4A86DF;
+    background-color: #4A86DF;
 }
 
 .sbdblue {
-  background-color: #4073BF;
+    background-color: #4073BF;
 }
 
 #brand_with_logo img, 
 #brand_with_logo h3 {
-  display:inline-block;
+    display:inline-block;
 }
 
 #brand_with_logo {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 .navbar-default .navbar-brand {
-  padding:10px;
-  font-family: BrixSlab-Bold;
-  font-size: 1.5em;
-  color: #4EAF47;
+    padding:10px;
+    font-family: BrixSlab-Bold;
+    font-size: 1.5em;
+    color: #4EAF47;
 }
 
 .navbar-default .navbar-brand img {
-  max-height: 36px;
-  margin-right: 10px;
+    max-height: 36px;
+    margin-right: 10px;
 }
 
 #tabMeasurements h4.panel-title {
-  font-size: 14px;
-  cursor: pointer;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 /* remove highchart-ng "Loading..." text and replace with an image */
 .highcharts-loading span {
-  display:none;
+    display:none;
 }
 .highcharts-loading {
-  background-image: url("/images/throbber.gif");
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+    background-image: url("/images/throbber.gif");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
 
 .panel-title > .accordion-toggle span:hover {
-  cursor: pointer;
-  text-decoration: underline;
+    cursor: pointer;
+    text-decoration: underline;
 }
-/*OPM*/
+/*************************************************OPM*/
 .conditions .panel-default > .panel-heading {
-        padding: 0px !important;
-     }
+    padding: 0px !important;
+}
 .panel-title > a{
-     display: flex !important;
-     }
+    display: flex !important;
+}
+/*Light slider*/
+#slider_light .slider-selection {
+    background: darkgray;
+}
+#slider_light .slider-track-low {
+    background: darkslategrey;
+}
+#slider_light .slider-track-high {
+    background: yellow;
+}
+/*Moisture slider*/
+#slider_moisture .slider-selection {
+    background: lightseagreen;
+}
+#slider_moisture .slider-track-low {
+    background: sandybrown;
+}
+#slider_moisture .slider-track-high {
+    background: #1D1DF5;
+}
+/*PH slider*/
+#slider_pH .slider-selection {
+    background: lightgrey;
+}
+#slider_pH .slider-track-low {
+    background: lightcoral;
+}
+#slider_pH .slider-track-high {
+    background: lightskyblue;
+}
+/*Temperature slider*/
+#slider_temp .slider-selection {
+    background: lightseagreen;
+}
+#slider_temp .slider-track-low {
+    background: darkblue;
+}
+#slider_temp .slider-track-high {
+    background: lightcoral;
+}
 
+/*Months and hours slider*/
+#slider_months .slider-selection,
+#slider_hours .slider-selection{
+    background: #FBFB1C;
+}
+#slider_months   .slider-track-low, 
+#slider_hours   .slider-track-low,
+#slider_months  .slider-track-high,
+#slider_hours  .slider-track-high{
+    background: gray;
+}
 
+.slider-tick {
+    opacity:0;
+}
+.slider-tick.in-selection {
+    opacity: 0;
+}
+.slider-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(53, 65, 77);
+    background-image: linear-gradient(to bottom, rgb(113, 122, 128) 0%, rgb(70, 90, 101) 100%);
+    background-repeat: repeat-x;
+    filter: none;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border: 0px solid transparent;
+}

@@ -1,0 +1,56 @@
+<div class="row register" style="padding-left: 20px">
+    <div class="row" role="tabpanel">
+        <ul class="nav nav-tabs " role="tablist">
+            <li role="presentation"><a href="#/classify/Light" aria-controls="tabLight" role="tab" data-toggle="tab">Light</a></li>
+            <li role="presentation"  class="active"><a href="#/classify/Temp" aria-controls="tabSoilTemperature" role="tab" data-toggle="tab">Soil Temperature</a></li>
+            <li role="presentation"><a href="#/classify/Moisture" aria-controls="tabMoisture" role="tab" data-toggle="tab">Moisture</a></li>
+            <li role="presentation"><a href="#/classify/Ph" aria-controls="tabPH_Value" role="tab" data-toggle="tab">PH</a></li>
+        </ul>
+
+    </div>
+
+    <div class="tab-content">
+
+
+        <div role="tabpanel" style="margin: 2%" class="tab-pane active " id="tabSoilTemperature">
+            <div style="display:flex;flex-direction: row;">
+                <div style="flex:1; width:10%; text-align:center">cold </div>
+                <div style="width:80%">
+                    <span slider  ng-model="temp_slider.model" tooltipsplit="{{sliderOptions.tooltipsplit}}" formatter="formatterFn(value,temp_slider.prefix,temp_slider.suffix)" ticks="temp_slider.labels"  ticks-labels='temp_slider.labels' id="slider_temp"  slider-tooltip="{{sliderOptions.tooltip}}" step="light_slider.step" value="temp_slider.values" range="sliderOptions.range"></span>
+                </div>
+                <div style="flex:1; width:10%; text-align:center">hot</div> 
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <hr>
+        <div style="display:flex;flex-direction: column">
+        <div style="flex:1;margin-bottom: 60px;margin-top: 20px">
+            <div >Months</div>
+            <div style="display:flex;flex-direction: row;">
+                <div style="flex:1"> </div>
+                <div style="width:80%">
+                    <span slider  ng-model="months_slider.model"   ticks="months_slider.ticks" ticks-labels="months_slider.ticks_labels" id="slider_months"  slider-tooltip="{{months_slider.tooltip}}" step="months_slider.step" value="months_slider.values" range="sliderOptions.range"></span>
+                </div>
+                <div style="flex:1"></div>
+            </div>
+        </div>    
+        <div style="flex:1">
+            <div style="margin-bottom: 40px">Hours (for the light analysis)</div>
+            <div style="display:flex;flex-direction: row;">
+                <div style="flex:1"> </div>
+                <div style="width:80%">
+                    <span slider  ng-model="hours_slider.model"   ticks="hours_slider.ticks"  ticks-labels='hours_slider.ticks_labels' id="slider_hours"  slider-tooltip="hours_slider.tooltip" step="hours_slider.step" value="hours_slider.values" range="sliderOptions.range"></span> 
+                </div>
+                <div style="flex:1">
+                </div> 
+            </div>
+
+        </div>
+        </div>
+</div>

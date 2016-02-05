@@ -34,23 +34,23 @@ angular
                     })
                     .when('/explore', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/explore/Light', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/explore/PH', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/explore/Temp', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/explore/Moisture', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/launch', {
                         templateUrl: 'views/explore.html',
@@ -62,7 +62,7 @@ angular
                     })
                     .when('/explore/:boxid', {
                         templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl',
+                        controller: 'ExploreCtrl'
                     })
                     .when('/download', {
                         templateUrl: 'views/explore.html',
@@ -72,8 +72,20 @@ angular
                         templateUrl: 'views/explore.html',
                         controller: 'ExploreCtrl'
                     })
-                    .when('/classify', {
-                        templateUrl: 'views/classify.html',
+                    .when('/classify/Light', {
+                        templateUrl: 'views/classifyLight.html',
+                        controller: 'ClassifyCtrl'
+                    })
+                    .when('/classify/Temp', {
+                        templateUrl: 'views/classifyTemp.html',
+                        controller: 'ClassifyCtrl'
+                    })
+                    .when('/classify/Moisture', {
+                        templateUrl: 'views/classifyMoisture.html',
+                        controller: 'ClassifyCtrl'
+                    })
+                    .when('/classify/Ph', {
+                        templateUrl: 'views/classifyPh.html',
                         controller: 'ClassifyCtrl'
                     })
                     .otherwise({
