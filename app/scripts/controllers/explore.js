@@ -1,7 +1,7 @@
 'use strict';
 angular.module('openSenseMapApp')
-        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
                 $scope.selectedMarkerData = [];
@@ -215,7 +215,6 @@ angular.module('openSenseMapApp')
                             type: 'group',
                             name: 'plant',
                             visible: true
-
                         }
                     }
                 };
@@ -257,6 +256,21 @@ angular.module('openSenseMapApp')
                     $scope.timeout = $timeout($scope.countdown, 1000);
                 };
                 $scope.$on('ngDialog.closing', function (e, $dialog) {
+					// adding markers for plants:
+					Plants.query(function (response){
+						for (var i = 0; i < response.length; i++){
+							var plantMarker = {};
+							plantMarker.lng = response[i].loc[1];
+							plantMarker.lat = response[i].loc[0];
+							plantMarker.id = response[i]._id;
+							plantMarker.image = response[i]._id+'.jpeg';
+							plantMarker.icon = icons.plant;
+							plantMarker.layer = 'plant';
+							console.log("PLANTTEST",plantMarker.lng+","+plantMarker.lat);
+							$scope.markers.push(plantMarker);
+						}
+						$scope.mapMarkers = $scope.markers;
+					});
                     OpenSenseBoxes.query(function (response) {
                         for (var i = 0; i <= response.length - 1; i++) {
                             var tempMarker = {};
@@ -652,6 +666,23 @@ angular.module('openSenseMapApp')
                     $location.path('/explore/' + $scope.selectedMarker.id, false);
                 });
                 if ($location.path() !== "/launch") {
+					// adding markers for plants:
+					Plants.query(function (response){
+						console.log("PLANTTEST",response);
+						console.log("PLANTTEST response length:",response.length);
+						for (var i = 0; i < response.length; i++){
+							var plantMarker = {};
+							plantMarker.lng = response[i].loc[1];
+							plantMarker.lat = response[i].loc[0];
+							plantMarker.id = response[i]._id;
+							plantMarker.image = response[i]._id+'.jpeg';
+							plantMarker.icon = icons.plant;
+							plantMarker.layer = 'plant';
+							console.log("PLANTTEST",plantMarker.lng+","+plantMarker.lat);
+							$scope.markers.push(plantMarker);
+						}
+						$scope.mapMarkers = $scope.markers;
+					});
                     OpenSenseBoxes.query(function (response) {
                         for (var i = 0; i <= response.length - 1; i++) {
                             var tempMarker = {};
