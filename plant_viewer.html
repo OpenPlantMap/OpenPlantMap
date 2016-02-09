@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet">
+<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="stylesheet" href="Leaflet.Geonames-master/L.Control.Geonames.css" />
+<link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css" />
+
+ 
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="Leaflet.Geonames-master/L.Control.Geonames.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+<script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<style> 
+html, body {
+	height: 100%;
+}
+#bodycon, #mapcontainer {
+	height: 90%;
+}
+#map {
+	border: 2px dashed black;
+	height: 100%;
+}
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>OpenPlantMap</title>
+
+
+</head>
+   <body>
+   <div class="container" id="bodycon">
+
+      <!-- Static navbar -->
+      <!-- Navigation Bar -->
+        <header class="navbar navbar-default navbar-static-top" style="background-color: greenyellow;"ng-controller="HeaderCtrl">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span id="brand_with_logo"><a class="navbar-brand" style="font-family: Helvetica,Arial,sans-serif;font-size: 25px;"href="#/"><img src="app/images/sensebox-favicon.png"/><b>&nbsp;openPlantMap</b></a></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <div class="col-lg-8 col-sm-8 col-xs-12" id="mapcontainer" style: "height: 100%">
+    	<div id="map" ></div>  
+    </div>
+    <div class="panel panel-success col-lg-4 col-sm-4 col-xs-12" id="#UIcontainer">
+    	<div class="panel-heading">
+        	<h3 style="text-align: center;"> View Plants </h3>
+    	</div>
+        <!-- Selector: Latin names or common names -->
+        <div class="form-group">
+            <label for="sel_nameType">Select plants by:</label>
+        </div>
+        <div style="margin: 20px 0px 25px 0px;">
+            <select class="form-control" id="sel_nameType" onchange="sel_nameType()">
+                <option selected>Common names</option>
+                <option>Latin names</option>
+             </select>
+        </div> <!-- End: Selector: Latin names or common names -->
+        
+        <!-- Plant Type selector. Enter name and auto fill-->
+        <div class="container-fuild">
+            <div class="ui-widget">
+                <label for="tags">Enter plant type: </label>
+                <input id="tags">
+                <button type="button" onclick="btn_select()" class="btn btn-success">Select</button>
+            </div>
+        </div>
+        
+        
+        <div class="row" id="legend_l1" hidden>
+        	<div class="col-lg-2 col-sm-2 col-xs-2">
+            	<img id="legend_img1" src="pictures/leaf-green.png">
+            </div>
+            <div class="col-lg-10 col-sm-10 col-xs-10">
+            	<p id="legend_l1_lat">latin name: planttypeA </p>
+                <p id="legend_l1_comnames">planttypename_com1, <br> planttypename_com2</p>
+            </div>
+        </div>
+        
+        <div class="row" id="legend_l2" hidden> 
+        	<div class="col-lg-2 col-sm-2 col-xs-2">
+            	<img id="legend_img2" src="pictures/leaf-red.png">
+            </div>
+            <div class="col-lg-10 col-sm-10 col-xs-10">
+            	<p id="legend_l2_lat">latin name: planttypeA </p>
+                <p id="legend_l2_comnames">planttypename_com1, <br> planttypename_com2</p>
+            </div>
+        </div>
+        
+        <div class="row" id="legend_l3" hidden> 
+        	<div class="col-lg-2 col-sm-2 col-xs-2">
+            	<img id="legend_img3" src="pictures/leaf-orange.png">
+            </div>
+            <div class="col-lg-10 col-sm-10 col-xs-10">
+            	<p id="legend_l3_lat">latin name: planttypeA </p>
+                <p id="legend_l3_comnames">planttypename_com1, <br> planttypename_com2</p>
+            </div>
+        </div>
+        
+    </div>
+    	
+	
+  
+</body>
+  <script>
+    
+    var dataSelection$nameType = "common";
+	var PlantTypes_common = [];
+	var PlantTypes_latin = [];
+	var dataSelection$selectedPlantTypes = [];
+	var plantmarkers = [];
+	var selected_planttypes = [];
+	
+    window.onload = init();
+	
+	function init(){
+		console.log("TESTINIT","INIT LOADED");
+		dataSelection$nameType = "common";
+		var http = new XMLHttpRequest();
+		http.onreadystatechange = function() { 
+			if (http.readyState == 4){
+				var obj = JSON.parse(http.responseText.toString());
+				console.log("response: "+obj);
+				for (var i=0; i<obj.length; i++){
+					var plant = obj[i];
+					PlantTypes_latin.push(plant.latinName);
+					for (var j=0; j<plant.name.length;j++){
+						PlantTypes_common.push(plant.name[j]);
+					}
+				}
+				
+			$("#tags").autocomplete({
+				source:PlantTypes_common
+			});
+			}
+    	}
+		//http.open("GET", 'http://127.0.0.1:8000/planttypes', true);
+		http.open("GET", 'http://openpmap.shaula.uberspace.de/api'+"/planttypes", false);
+		http.send(null);
+		dataSelection$nameType = "common";
+	}
+	
+	function btn_select(){
+		var selected = $("#tags").val();
+		if (dataSelection$nameType == "common") {
+			var http = new XMLHttpRequest();
+			http.onreadystatechange = function() { 
+				if (http.readyState == 4 && http.status == 201){
+					var obj = JSON.parse(http.responseText.toString());
+					if (!contains(dataSelection$selectedPlantTypes,obj._id)) {
+						// Object not selected yet:
+						if (dataSelection$selectedPlantTypes.length<3){
+							dataSelection$selectedPlantTypes.push(obj._id);
+							selected_planttypes.push(obj);
+						}
+					} else {
+						// Object already selected: unselect it
+						selected_planttypes.splice(dataSelection$selectedPlantTypes.indexOf(obj._id),1);
+						dataSelection$selectedPlantTypes.splice(dataSelection$selectedPlantTypes.indexOf(obj._id),1);
+					}
+					update();
+					selected_planttypes.forEach(function(a,b,c){
+						console.log(a.latinName);
+					});
+				}
+			}
+			//http.open("GET", 'http://127.0.0.1:8000/planttypesbycommon/'+selected, false);
+			http.open("GET", 'http://openpmap.shaula.uberspace.de/api' + '/planttypesbycommon/'+selected, false);
+			http.send(null);
+		} else {
+			var http = new XMLHttpRequest();
+			http.onreadystatechange = function() { 
+				if (http.readyState == 4 && http.status == 201){
+					var obj = JSON.parse(http.responseText.toString());
+					if (!contains(dataSelection$selectedPlantTypes,obj._id)) {
+						// Object not selected yet:
+						if (dataSelection$selectedPlantTypes.length<3){
+							dataSelection$selectedPlantTypes.push(obj._id);
+							selected_planttypes.push(obj);
+						}
+					} else {
+						// Object already selected: unselect it
+						selected_planttypes.splice(dataSelection$selectedPlantTypes.indexOf(obj._id),1);
+						dataSelection$selectedPlantTypes.splice(dataSelection$selectedPlantTypes.indexOf(obj._id),1);
+					}
+					update();
+					selected_planttypes.forEach(function(a,b,c){
+						console.log(a.latinName);
+					});
+				}
+    		}
+			//http.open("GET", 'http://127.0.0.1:8000' + '/planttypesby/'+selected, false);
+			http.open("GET", 'http://openpmap.shaula.uberspace.de/api' + '/planttypesby/'+selected, false);
+			http.send(null);
+		}
+	}
+	
+	function contains(a, obj) {
+		for (var i = 0; i < a.length; i++) {
+			if (a[i] === obj) {
+				return true;
+			}
+		}
+		return false;
+	}
+  
+  	// Selector: Common names or latin names
+	function sel_nameType(){
+		
+		var index = document.getElementById("sel_nameType").selectedIndex;
+		if (index==0){
+			dataSelection$nameType = "common";
+			$("#tags").autocomplete({
+				source:PlantTypes_common
+			});
+		};
+		if (index==1){
+			dataSelection$nameType = "latin";
+			$("#tags").autocomplete({
+				source:PlantTypes_latin
+			});
+		};
+		update();
+	};
+	
+	var convertToBase64 = function(url, imagetype, callback){
+		var img = document.createElement('IMG'),
+			canvas = document.createElement('CANVAS'),
+			ctx = canvas.getContext('2d'),
+			data = '';
+		img.crossOrigin = 'Anonymous'
+		img.onload = function(){
+			canvas.height = this.height;
+			canvas.width = this.width;
+			ctx.drawImage(this, 0, 0);
+			data = canvas.toDataURL(imagetype);
+			callback(data);
+		};
+		img.src = url;
+	};
+	
+	var uploadPlantType = function(src, name, type){
+		convertToBase64(src, type, function(data){
+			postPlantType(name,["testflower123"],6,10,true,true,false,18,32,false,true, true, data);
+		});
+	};
+	
+	function postTest(testrargument){
+		var httpPost = new XMLHttpRequest(),
+			path = "http://openpmap.shaula.uberspace.de/api/test/" + testrargument;
+			header = ('Content-Type','application/json');
+		httpPost.onreadystatechange = function(err) {
+			if (httpPost.readyState == 4 && httpPost.status == 200){
+				console.log(httpPost.responseText);
+			} else {
+				console.log(err);
+			} 
+		}
+		httpPost.open("POST", path, true);
+		httpPost.send(null);
+	}
+	
+	function postPlantType(latinName, commonNames, pH_min, pH_max, mois_dry, mois_medium, mois_wet, temp_min, temp_max, sun_sunny, sun_semi, sun_shady, base64)		
+	{
+		var httpPost = new XMLHttpRequest(),
+			// path = "http://127.0.0.1:8000/planttypes/" + latinName + "/",
+			path = "http://openpmap.shaula.uberspace.de/api/planttypes/" + latinName +"/",
+			header = ('Content-Type','application/json'),
+			data = JSON.stringify({image:base64});
+		console.log("data length="+data.length);
+		console.log(data);
+		httpPost.onreadystatechange = function(err) {
+			if (httpPost.readyState == 4 && httpPost.status == 201){
+				console.log(httpPost.responseText);
+			} else {
+				console.log(err + " " + httpPost.responseText);
+			}
+		};
+		
+		//var path = "http://127.0.0.1:8000/planttypes/" + latinName +"/";
+		var path = "http://openpmap.shaula.uberspace.de/api/planttypes/" + latinName +"/";
+		
+		for (var i=0; i<commonNames.length; i++){
+			if (i<commonNames.length-1)
+				path += commonNames[i]+"ZZZ";
+			else 
+				path += commonNames[i];
+		}
+		path += "/"+pH_min+"/"+pH_max+"/"+mois_dry+"/"+mois_medium+"/"+mois_wet+"/"+temp_min+"/"+temp_max+"/"+sun_sunny+"/"+sun_semi+"/"+sun_shady;
+		httpPost.open("POST", path, true);
+		httpPost.send(data);
+	}
+	
+	var uploadPlant = function(src, type, planttypeId, plantLoc){
+		convertToBase64(src, type, function(data){
+			postPlant(data, planttypeId, plantLoc);
+		});
+	};
+	
+	function postPlant(base64, planttypeId, plantLoc){
+		var httpPost = new XMLHttpRequest(),
+			path = "http://openpmap.shaula.uberspace.de/api/plants/"+planttypeId,
+			//path = "http://127.0.0.1:8000/plants/"+planttypeId,
+			header = ('Content-Type','application/json'),
+			data = JSON.stringify({image:base64, loc: plantLoc});
+		httpPost.onreadystatechange = function(err) {
+			if (httpPost.readyState == 4 && httpPost.status == 201){
+				console.log(httpPost.responseText);
+			} else {
+				console.log(err);
+			}
+		};
+		httpPost.open("POST", path, true);
+		httpPost.send(data);
+	}
+	
+	function update(){
+		//Updating the map:
+		// 1. remove all previous markers:
+		while (plantmarkers.length >=1){
+			map.removeLayer(plantmarkers[0]);
+			plantmarkers.splice(0,1);
+		}
+		
+		// 2. add markers for all plants of selected types:
+		// For each selected PlantType:
+		for ( j=0; j<dataSelection$selectedPlantTypes.length; j++){
+			selected = dataSelection$selectedPlantTypes[j];
+			// Get all plants by specific PlantType
+			var http = new XMLHttpRequest();
+			http.onreadystatechange = function(err) {
+				if (http.readyState == 4 && http.status == 201){
+					var obj = JSON.parse(http.responseText.toString());
+					// For Each plant p
+					for (var i=0; i < obj.length; i++){
+						plant = obj[i];
+						// create marker at p's location
+						console.log(plant.image);
+						var marker = L.marker(plant.loc, {icon: icon[j]}).addTo(map).bindPopup('<img id=\'base64image\' style=\'display:block; width: 100px;height:100px;\' src=' + '\''+plant.image+ '\'' + '/>' + '\<br>' + "Lat/Lon: " + plant.loc[0]+","+plant.loc[1]);
+						
+						plantmarkers.push(marker);
+					}
+				} else {
+					console.log(err);
+				}
+			}
+			//http.open("GET", "http://127.0.0.1:8000/plantsbyType/"+selected, false);
+			http.open("GET", "http://openpmap.shaula.uberspace.de/api/plantsbyType/"+selected, false);
+			http.send(null);
+		}
+		
+		// update Legend:
+		// 1. hide previous Legend elements
+		for (var i=1;i<=3;i++){
+			document.getElementById("legend_l"+i).hidden = true;
+		}
+		
+		// 2. create new Legend elements and show
+		selected_planttypes.forEach(function(planttype,index,array){
+			document.getElementById("legend_l"+(index+1)+"_lat").innerHTML = "name: " + planttype.latinName;
+			var tmp = planttype.name.length > 1 ? "common names: " : "common name: ";
+			tmp += '<br>';
+			for (var i=0; i < planttype.name.length; i++){
+				tmp += planttype.name[i] + ((i==0) && (planttype.name.length>(i+1))? ", " : "") + '<br>';
+			}
+			document.getElementById("legend_l"+(index+1)+"_comnames").innerHTML = tmp;
+			document.getElementById("legend_l"+(index+1)).hidden = false;
+		});
+		
+		//Test upload a PlantType: 
+		//uploadPlantType("fruehlingsknotenblume.jpg", "petersilientest", 'image/jpeg');
+		
+		//Test upload a Plant: 
+		//uploadPlant("abraham.jpg",'image/jpeg', "56b493f32a25ead810e33050", [51.968, 7.649]);
+		
+		//Test testpost:
+		//postTest("Show me the money");
+		console.log(".. map updated..");
+	}
+	
+	var map = L.map("map").setView([51.959264, 7.625857], 12);
+	
+	// OSM layer
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(self.map);
+	//var marker = L.marker([51.963549, 7.613166]).addTo(map);
+    var LeafIcon = L.Icon.extend({
+		options: {
+			shadowUrl: 'pictures/leaf-shadow.png',
+			iconSize:     [38, 95],
+			shadowSize:   [50, 64],
+			iconAnchor:   [22, 94],
+			shadowAnchor: [4, 62],
+			popupAnchor:  [-3, -76]
+		}
+	});
+
+	var icon = [
+		new LeafIcon({iconUrl: 'pictures/leaf-green.png'}),
+		new LeafIcon({iconUrl: 'pictures/leaf-red.png'}),
+		new LeafIcon({iconUrl: 'pictures/leaf-orange.png'})
+	];
+		
+	
+	L.icon = function (options) {
+		return new L.Icon(options);
+	};
+	
+</script>
+</html>
