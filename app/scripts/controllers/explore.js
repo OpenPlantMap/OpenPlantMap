@@ -1,7 +1,9 @@
 'use strict';
 angular.module('openSenseMapApp')
-        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+        .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes',
+		'OpenSenseBoxCondition', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxCondition,OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
                 $scope.selectedMarkerData = [];
@@ -163,7 +165,6 @@ angular.module('openSenseMapApp')
                         var point_east = map.project(east);
                         var dist_vertical = getDistance(point_center, point_north);
                         var dist_horizontal = getDistance(point_center, point_east);
-
                         if (dist_vertical < dist_horizontal) {
                             $scope.paths.buffer.radius = Math.round(dist_vertical);
                         } else {
@@ -224,6 +225,43 @@ angular.module('openSenseMapApp')
                 $scope.hide_show_Plants = function () {
                     $scope.layers.overlays.plant.visible = !$scope.layers.overlays.plant.visible;
                 };
+                $scope.selectedMarkerCondition = {};
+                $scope.selectedMarkerCondition.temperature = {};
+                $scope.otherMarker2 = false;
+                $scope.otherMarker1 = true;
+                function getBiggestPercentageInterval(first1, second1, third1) {
+                    var first;
+                    var second;
+                    var third;
+                    if (typeof first1[0] !== "undefined") {
+                        first = Number(first1[0].percentage);
+                    } else {
+                        first = -99999;
+                    }
+                    if (typeof second1[0] !== "undefined") {
+                        second = Number(second1[0].percentage);
+                    } else {
+                        second = -99999;
+                    }
+                    if (typeof third1[0] !== "undefined") {
+                        third = Number(third1[0].percentage);
+                    } else {
+                        third = -99999;
+                    }
+                    if (first > second) {
+                        if (first > third) {
+                            return 1;
+                        } else {
+                            return 3;
+                        }
+                    } else {
+                        if (second > third) {
+                            return 2;
+                        } else {
+                            return 3;
+                        }
+                    }
+                }
                 //############################end added
                 $scope.counter = 3;
                 $scope.timeout;
@@ -295,6 +333,8 @@ angular.module('openSenseMapApp')
                                 case "/explore/Temp":
                                     tempMarker.icon = icons.temperature;
                                     break;
+                                default:
+                                    tempMarker.icon = icons.senseBox;
                             }
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
@@ -347,6 +387,20 @@ angular.module('openSenseMapApp')
                         var lng = response.loc[0].geometry.coordinates[0];
                         $scope.zoomTo(lat, lng);
                     });
+                    //added
+//                    OpenSenseBoxCondition.query({boxId: $routeParams.boxid, measurement: 'Temperature', bound1: '20', bound2: '100'}, function (response) {
+//                        $scope.selectedMarkerCondition.temperature.mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
+//                        $scope.selectedMarkerCondition.temperature.response = response;
+//                    });
+                    if ($routeParams.boxid === '56b0ec3174cc57d12ce407f5') {
+                        $scope.otherMarker2 = true;
+                        $scope.otherMarker1 = false;
+                    } else {
+                        $scope.otherMarker2 = false;
+                        $scope.otherMarker1 = true;
+                    }
+
+                    //end added
                 }
                 if ($location.path().indexOf("/download") === 0) {
                     $scope.sidebarActive = true;
@@ -664,6 +718,15 @@ angular.module('openSenseMapApp')
                     $scope.center.zoom = 15;
                     $rootScope.selectedBox = $scope.selectedMarker.id;
                     $location.path('/explore/' + $scope.selectedMarker.id, false);
+                    //added
+                    if ($scope.selectedMarker.id === '56b0ec3174cc57d12ce407f5') {
+                        $scope.otherMarker2 = true;
+                        $scope.otherMarker1 = false;
+                    } else {
+                        $scope.otherMarker2 = false;
+                        $scope.otherMarker1 = true;
+                    }
+                    //endadded
                 });
                 if ($location.path() !== "/launch") {
 					// adding markers for plants:
@@ -707,6 +770,8 @@ angular.module('openSenseMapApp')
                                 case "/explore/Temp":
                                     tempMarker.icon = icons.temperature;
                                     break;
+                                default:
+                                    tempMarker.icon = icons.senseBox;
                             }
                             tempMarker.name = response[i].name;
                             tempMarker.sensors = response[i].sensors;
