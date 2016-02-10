@@ -75,7 +75,7 @@ angular.module('openSenseMapApp')
                     sliderValues.set_temp_values(values);
                 };
                 $scope.ph_slider_event = function (values, event) {
-                  sliderValues.set_ph_values(values);
+                  sliderValues.set_ph_values(values.map(function(value){return value / 2; }));
                 };
                 $scope.moisture_slider_event = function (values, event) {
                     sliderValues.set_moisture_values(values);
