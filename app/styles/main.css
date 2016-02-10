@@ -438,43 +438,70 @@ div.box {
     display: flex !important;
 }
 /*Light slider*/
-#slider_light .slider-selection {
+#slider_light .slider-selection,
+.light_semi-shady
+{
     background: darkgray;
+    color: white;
 }
-#slider_light .slider-track-low {
+#slider_light .slider-track-low,
+.light_shady
+{
     background: darkslategrey;
+    color: white;
 }
-#slider_light .slider-track-high {
+#slider_light .slider-track-high,
+.light_sunny
+{
     background: yellow;
 }
 /*Moisture slider*/
-#slider_moisture .slider-selection {
+#slider_moisture .slider-selection, 
+.moisture_semi-humid
+{
     background: lightseagreen;
 }
-#slider_moisture .slider-track-low {
+#slider_moisture .slider-track-low,
+.moisture_dry
+{
     background: sandybrown;
 }
-#slider_moisture .slider-track-high {
+#slider_moisture .slider-track-high,
+.moisture_humid
+{
     background: #1D1DF5;
 }
 /*PH slider*/
-#slider_pH .slider-selection {
+#slider_pH .slider-selection,
+.ph_neutral
+{
     background: lightgrey;
 }
-#slider_pH .slider-track-low {
+#slider_pH .slider-track-low,
+.ph_acid
+{
     background: lightcoral;
 }
-#slider_pH .slider-track-high {
+#slider_pH .slider-track-high,
+.ph_basic
+{
     background: lightskyblue;
 }
 /*Temperature slider*/
-#slider_temp .slider-selection {
+#slider_temp .slider-selection,
+.temp_medium
+{
     background: lightseagreen;
 }
-#slider_temp .slider-track-low {
+#slider_temp .slider-track-low,
+.temp_cold
+{
     background: darkblue;
+    color: white;
 }
-#slider_temp .slider-track-high {
+#slider_temp .slider-track-high,
+.temp_hot
+{
     background: lightcoral;
 }
 

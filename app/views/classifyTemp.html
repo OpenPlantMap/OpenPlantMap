@@ -16,7 +16,7 @@
             <div style="display:flex;flex-direction: row;">
                 <div style="flex:1; width:10%; text-align:center">cold </div>
                 <div style="width:80%">
-                    <span slider  ng-model="temp_slider.model" tooltipsplit="{{sliderOptions.tooltipsplit}}" formatter="formatterFn(value,temp_slider.prefix,temp_slider.suffix)" ticks="temp_slider.labels"  ticks-labels='temp_slider.labels' id="slider_temp"  slider-tooltip="{{sliderOptions.tooltip}}" step="light_slider.step" value="temp_slider.values" range="sliderOptions.range"></span>
+                    <span slider  ng-model="temp_slider.model" on-stop-slide="temp_slider_event(value,$event)" tooltipsplit="{{sliderOptions.tooltipsplit}}" formatter="formatterFn(value,temp_slider.prefix,temp_slider.suffix)" ticks="temp_slider.labels"  ticks-labels='temp_slider.labels' id="slider_temp"  slider-tooltip="{{sliderOptions.tooltip}}" step="temp_slider.step" value="temp_slider.values" range="sliderOptions.range"></span>
                 </div>
                 <div style="flex:1; width:10%; text-align:center">hot</div> 
             </div>

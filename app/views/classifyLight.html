@@ -14,7 +14,7 @@
             <div style="display:flex;flex-direction: row;"> 
                 <div style="flex:1;width:10%; text-align:center">dark </div>
                 <div style="width:80%">
-                    <span slider  ng-model="light_slider.model" tooltipsplit="{{sliderOptions.tooltipsplit}}"   formatter="formatterFn(value,light_slider.prefix,light_slider.suffix)" ticks="light_slider.labels"  ticks-labels="light_slider.labels" id="slider_light"  slider-tooltip="{{sliderOptions.tooltip}}" step="light_slider.step" value="light_slider.values" range="sliderOptions.range"></span> 
+                    <span slider  ng-model="light_slider.model" on-stop-slide="light_slider_event(value,$event)" tooltipsplit="{{sliderOptions.tooltipsplit}}"   formatter="formatterFn(value,light_slider.prefix,light_slider.suffix)" ticks="light_slider.labels"  ticks-labels="light_slider.labels" id="slider_light"  slider-tooltip="{{sliderOptions.tooltip}}" step="light_slider.step" value="light_slider.values" range="sliderOptions.range"></span> 
                 </div>
                 <div style="flex:1;width:10%; text-align:center">light</div> 
             </div>

@@ -1,8 +1,8 @@
 'use strict';
 angular.module('openSenseMapApp')
         .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes',
-		'OpenSenseBoxCondition', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxCondition,OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI) {
+		'OpenSenseBoxCondition', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI','sliderValues',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxCondition,OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI,sliderValues) {
 
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
@@ -74,6 +74,8 @@ angular.module('openSenseMapApp')
                 $scope.$on('leafletDirectiveMap.map_main.click', function (event, args) {
                     addBuffer();
                     adapt_Buffer_radius(select_all_Markers_in_Buffer);
+                    $scope.show_oneSenseBox = false;
+                    $scope.show_manyBoxesAndPlants = true;
                 });
                 function select_all_Markers_in_Buffer() {
                     var marker = $scope.markers;
@@ -187,9 +189,13 @@ angular.module('openSenseMapApp')
                     if (typeof $scope.paths.buffer !== 'undefined') {
                         $scope.paths = {};
                         deselect_all_objects();
+                        $scope.show_oneSenseBox = true;
+                        $scope.show_manyBoxesAndPlants = false;
                     } else {
                         addBuffer();
                         adapt_Buffer_radius(select_all_Markers_in_Buffer);
+                        $scope.show_oneSenseBox = false;
+                        $scope.show_manyBoxesAndPlants = true;
                     }
                 };
                 $scope.layers = {
@@ -226,13 +232,37 @@ angular.module('openSenseMapApp')
                     $scope.layers.overlays.plant.visible = !$scope.layers.overlays.plant.visible;
                 };
                 $scope.selectedMarkerCondition = {};
+                $scope.show_manyBoxesAndPlants = false;
+                $scope.show_oneSenseBox = true;
                 $scope.selectedMarkerCondition.temperature = {};
-                $scope.otherMarker2 = false;
-                $scope.otherMarker1 = true;
+                $scope.selectedMarkerCondition.temperature.interval_names = ['cold', 'medium', 'hot'];
+                $scope.selectedMarkerCondition.temperature.class_1 = {};
+                $scope.selectedMarkerCondition.temperature.class_2 = {};
+                $scope.selectedMarkerCondition.temperature.class_3 = {};
+                $scope.temperature_firstClass = [];
+                $scope.selectedMarkerCondition.light = {};
+                $scope.selectedMarkerCondition.light.interval_names = ['shady', 'semi-shady', 'sunny'];
+                $scope.selectedMarkerCondition.light.class_1 = {};
+                $scope.selectedMarkerCondition.light.class_2 = {};
+                $scope.selectedMarkerCondition.light.class_3 = {};
+                $scope.light_firstClass = [];
+                $scope.selectedMarkerCondition.moisture = {};
+                $scope.selectedMarkerCondition.moisture.interval_names = ['dry', 'semi-humid', 'humid'];
+                $scope.selectedMarkerCondition.moisture.class_1 = {};
+                $scope.selectedMarkerCondition.moisture.class_2 = {};
+                $scope.selectedMarkerCondition.moisture.class_3 = {};
+                $scope.moisture_firstClass = [];
+                $scope.selectedMarkerCondition.ph = {};
+                $scope.selectedMarkerCondition.ph.interval_names = ['acid', 'neutral', 'basic'];
+                $scope.selectedMarkerCondition.ph.class_1 = {};
+                $scope.selectedMarkerCondition.ph.class_2 = {};
+                $scope.selectedMarkerCondition.ph.class_3 = {};
+                $scope.ph_firstClass = [];
                 function getBiggestPercentageInterval(first1, second1, third1) {
                     var first;
                     var second;
                     var third;
+                    var array = [];
                     if (typeof first1[0] !== "undefined") {
                         first = Number(first1[0].percentage);
                     } else {
@@ -250,17 +280,46 @@ angular.module('openSenseMapApp')
                     }
                     if (first > second) {
                         if (first > third) {
-                            return 1;
+                            array.push(1);
+                            if (second > third) {
+                                array.push(2);
+                                array.push(3);
+                            } else {
+                                array.push(3);
+                                array.push(2);
+                            }
                         } else {
-                            return 3;
+                            array.push(3);
+                            if (second > first) {
+                                array.push(2);
+                                array.push(1);
+                            } else {
+                                array.push(1);
+                                array.push(2);
+                            }
                         }
                     } else {
                         if (second > third) {
-                            return 2;
+                            array.push(2);
+                            if (first > third) {
+                                array.push(1);
+                                array.push(3);
+                            } else {
+                                array.push(3);
+                                array.push(1);
+                            }
                         } else {
-                            return 3;
+                            array.push(3);
+                            if (second > first) {
+                                array.push(2);
+                                array.push(1);
+                            } else {
+                                array.push(1);
+                                array.push(2);
+                            }
                         }
                     }
+                    return array;
                 }
                 //############################end added
                 $scope.counter = 3;
@@ -388,17 +447,7 @@ angular.module('openSenseMapApp')
                         $scope.zoomTo(lat, lng);
                     });
                     //added
-//                    OpenSenseBoxCondition.query({boxId: $routeParams.boxid, measurement: 'Temperature', bound1: '20', bound2: '100'}, function (response) {
-//                        $scope.selectedMarkerCondition.temperature.mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
-//                        $scope.selectedMarkerCondition.temperature.response = response;
-//                    });
-                    if ($routeParams.boxid === '56b0ec3174cc57d12ce407f5') {
-                        $scope.otherMarker2 = true;
-                        $scope.otherMarker1 = false;
-                    } else {
-                        $scope.otherMarker2 = false;
-                        $scope.otherMarker1 = true;
-                    }
+                    selectedMarkerConfig($routeParams.boxid);
 
                     //end added
                 }
@@ -719,13 +768,8 @@ angular.module('openSenseMapApp')
                     $rootScope.selectedBox = $scope.selectedMarker.id;
                     $location.path('/explore/' + $scope.selectedMarker.id, false);
                     //added
-                    if ($scope.selectedMarker.id === '56b0ec3174cc57d12ce407f5') {
-                        $scope.otherMarker2 = true;
-                        $scope.otherMarker1 = false;
-                    } else {
-                        $scope.otherMarker2 = false;
-                        $scope.otherMarker1 = true;
-                    }
+                    selectedMarkerConfig($scope.selectedMarker.id);
+
                     //endadded
                 });
                 if ($location.path() !== "/launch") {
@@ -913,6 +957,55 @@ angular.module('openSenseMapApp')
                     }
 
                 };
+                //addedstart
+                function selectedMarkerConfig(marker_id) {
+
+                    OpenSenseBoxCondition.query({boxId: marker_id, measurement: 'Temperature', bound1: sliderValues.get_temp_values()[0], bound2: sliderValues.get_temp_values()[1]}, function (response) {
+                        var mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
+                        $scope.selectedMarkerCondition.temperature.class_1.response = response[mostValues[0] - 1];
+                        $scope.selectedMarkerCondition.temperature.class_1.name = $scope.selectedMarkerCondition.temperature.interval_names[mostValues[0] - 1];
+                        $scope.temperature_firstClass=[];
+                        $scope.temperature_firstClass.push('temp_' + $scope.selectedMarkerCondition.temperature.interval_names[mostValues[0] - 1]);
+                        $scope.selectedMarkerCondition.temperature.class_2.response = response[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.temperature.class_2.name = $scope.selectedMarkerCondition.temperature.interval_names[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.temperature.class_3.response = response[mostValues[2] - 1];
+                        $scope.selectedMarkerCondition.temperature.class_3.name = $scope.selectedMarkerCondition.temperature.interval_names[mostValues[2] - 1];
+                    });
+                    OpenSenseBoxCondition.query({boxId: marker_id, measurement: 'Light', bound1: sliderValues.get_light_values()[0], bound2: sliderValues.get_light_values()[1]}, function (response) {
+                        var mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
+                        $scope.selectedMarkerCondition.light.class_1.response = response[mostValues[0] - 1];
+                        $scope.selectedMarkerCondition.light.class_1.name = $scope.selectedMarkerCondition.light.interval_names[mostValues[0] - 1];
+                        $scope.light_firstClass=[];
+                        $scope.light_firstClass.push('light_' + $scope.selectedMarkerCondition.light.interval_names[mostValues[0] - 1]);
+                        $scope.selectedMarkerCondition.light.class_2.response = response[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.light.class_2.name = $scope.selectedMarkerCondition.light.interval_names[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.light.class_3.response = response[mostValues[2] - 1];
+                        $scope.selectedMarkerCondition.light.class_3.name = $scope.selectedMarkerCondition.light.interval_names[mostValues[2] - 1];
+                    });
+                    OpenSenseBoxCondition.query({boxId: marker_id, measurement: 'Moisture', bound1: sliderValues.get_moisture_values()[0], bound2: sliderValues.get_moisture_values()[1]}, function (response) {
+                        var mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
+                        $scope.selectedMarkerCondition.moisture.class_1.response = response[mostValues[0] - 1];
+                        $scope.selectedMarkerCondition.moisture.class_1.name = $scope.selectedMarkerCondition.moisture.interval_names[mostValues[0] - 1];
+                        $scope.moisture_firstClass=[];
+                        $scope.moisture_firstClass.push('moisture_' + $scope.selectedMarkerCondition.moisture.interval_names[mostValues[0] - 1]);
+                        $scope.selectedMarkerCondition.moisture.class_2.response = response[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.moisture.class_2.name = $scope.selectedMarkerCondition.moisture.interval_names[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.moisture.class_3.response = response[mostValues[2] - 1];
+                        $scope.selectedMarkerCondition.moisture.class_3.name = $scope.selectedMarkerCondition.moisture.interval_names[mostValues[2] - 1];
+                    });
+                    OpenSenseBoxCondition.query({boxId: marker_id, measurement: 'PH', bound1: sliderValues.get_ph_values()[0], bound2: sliderValues.get_ph_values()[1]}, function (response) {
+                        var mostValues = getBiggestPercentageInterval(response[0], response[1], response[2]);
+                        $scope.selectedMarkerCondition.ph.class_1.response = response[mostValues[0] - 1];
+                        $scope.selectedMarkerCondition.ph.class_1.name = $scope.selectedMarkerCondition.ph.interval_names[mostValues[0] - 1];
+                        $scope.ph_firstClass=[];
+                        $scope.ph_firstClass.push('ph_' + $scope.selectedMarkerCondition.ph.interval_names[mostValues[0] - 1]);
+                        $scope.selectedMarkerCondition.ph.class_2.response = response[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.ph.class_2.name = $scope.selectedMarkerCondition.ph.interval_names[mostValues[1] - 1];
+                        $scope.selectedMarkerCondition.ph.class_3.response = response[mostValues[2] - 1];
+                        $scope.selectedMarkerCondition.ph.class_3.name = $scope.selectedMarkerCondition.ph.interval_names[mostValues[2] - 1];
+                    });
+                }
+                //endAdded
             }]);
 
 

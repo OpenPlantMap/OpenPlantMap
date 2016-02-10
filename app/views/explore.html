@@ -36,15 +36,15 @@
                 <div class="tab-content">
 
                     <div role="tabpanel" class="tab-pane active conditions" id="tabInfo">
-                         <div ng-show="otherMarker1">
+                         <div ng-show="show_manyBoxesAndPlants">
                         <div  class="list-group">
                             <accordion close-others="oneAtATime"  >
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
-                                        <div style="background-color:greenyellow;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: Temperature medium (60 %) </div>            
+                                        <div style="background-color:greenyellow;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: Temperature medium ({{selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.mostValues[0]]][0].percentage}} %) </div>            
                                     </accordion-heading>
-                                    <div style="text-indent: 45pt;"> high (15%) </div>
-                                    <div style="text-indent: 45pt;"> low (35%) </div>
+                                    <div style="text-indent: 45pt;"> high ({{selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.mostValues[1]]][0].percentage}} %) </div>
+                                    <div style="text-indent: 45pt;"> low ({{selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.response[selectedMarkerCondition.temperature.mostValues[2]]][0].percentage}} %) </div>
                                 </accordion-group>
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
@@ -75,42 +75,42 @@
                             </accordion>
                         </div> <!-- end .list-group -->
                          </div>
-                        <div ng-show="otherMarker2">
+                        <div ng-show="show_oneSenseBox">
                          <div id="otherMarker2" class="list-group">
                             <accordion close-others="oneAtATime"  >
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
-                                        <div style="background-color:greenyellow;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: Temperature medium (75 %) </div>            
+                                        <div ng-class="temperature_firstClass" style="flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: Temperature {{selectedMarkerCondition.temperature.class_1.name}} ({{selectedMarkerCondition.temperature.class_1.response[0].percentage}} %) </div>            
                                     </accordion-heading>
-                                    <div style="text-indent: 45pt;"> high (15%) </div>
-                                    <div style="text-indent: 45pt;"> low (10%) </div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.temperature.class_2.name}} ({{selectedMarkerCondition.temperature.class_2.response[0].percentage}} %) </div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.temperature.class_3.name}} ({{selectedMarkerCondition.temperature.class_3.response[0].percentage}} %) </div>
                                 </accordion-group>
 
 
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
-                                        <div style="background-color:blue;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: semi-humid (70%) </div><div style="background-color: lightblue;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: semi-humid 4 of 5)</div>
+                                        <div ng-class="moisture_firstClass" style="flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: {{selectedMarkerCondition.moisture.class_1.name}} ({{selectedMarkerCondition.moisture.class_1.response[0].percentage}} %)  </div>
                                     </accordion-heading>
-                                    <div style="text-indent: 45pt;"> semi-humid (25%)&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; humid (1)</div>
-                                    <div style="text-indent: 45pt;"> dry (5%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dry (0)</div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.moisture.class_2.name}} ({{selectedMarkerCondition.moisture.class_2.response[0].percentage}} %)</div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.moisture.class_3.name}} ({{selectedMarkerCondition.moisture.class_3.response[0].percentage}} %) </div>
                                 </accordion-group>
 
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
-                                        <div style="background-color:lightcoral;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: PH: acid (100%) </div><div style="background-color: lightcoral;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: acid (3 of 5)</div>            
+                                        <div ng-class="ph_firstClass" style="flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: PH: {{selectedMarkerCondition.ph.class_1.name}} ({{selectedMarkerCondition.ph.class_1.response[0].percentage}} %)</div>            
                                     </accordion-heading>
-                                    <div style="text-indent: 45pt;"> neutral &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0%) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; neutral &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)</div>
-                                    <div style="text-indent: 45pt;"> basic  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0%) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; basic &nbsp;&nbsp;&nbsp; (1)</div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.ph.class_2.name}} ({{selectedMarkerCondition.ph.class_2.response[0].percentage}} %) </div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.ph.class_3.name}} ({{selectedMarkerCondition.ph.class_3.response[0].percentage}} %) </div>
                                 </accordion-group>
 
                                 <accordion-group title="(when multiple sensors and plants within an area are selected)">
                                     <accordion-heading >
-                                        <div style="background-color:#FF5;flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: sunny (60%)  <div style="text-indent: 55pt;">4.45 hours </div></div><div style="background-color: #FF5;flex:1;padding:10px"><i class="fa fa-tree"style="color:greenyellow"/>: sunny (5 of 5)</div>            
+                                        <div ng-class="light_firstClass" style="flex:1;padding:10px"><i class="fa fa-area-chart"style="color:blue"/>: {{selectedMarkerCondition.light.class_1.name}} ({{selectedMarkerCondition.light.class_1.response[0].percentage}} %)  </div>            
                                     </accordion-heading>
-                                    <div style="text-indent: 45pt;"> semi-shade (20%) | semi-shade (0)</div>
-                                    <div style="text-indent: 45pt;">3.45 hours </div>
-                                    <div style="text-indent: 45pt;"> shady (20%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| shady (0)</div>
-                                    <div style="text-indent: 45pt;">1.45 hours </div>
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.light.class_2.name}} ({{selectedMarkerCondition.light.class_2.response[0].percentage}} %)</div>
+                                   
+                                    <div style="text-indent: 45pt;"> {{selectedMarkerCondition.light.class_3.name}} ({{selectedMarkerCondition.light.class_3.response[0].percentage}} %)</div>
+                                   
                                 </accordion-group>
 
                             </accordion>

@@ -15,7 +15,7 @@
             <div style="display:flex;flex-direction: row;"> 
                 <div style="flex:1;width:10%; text-align:center">acid </div>
                 <div style="width:80%">
-                    <span slider  ng-model="pH_slider.model"   tooltipsplit="{{sliderOptions.tooltipsplit}}" ticks="pH_slider.ticks"  ticks-labels='pH_slider.ticks_labels' id="slider_pH"  slider-tooltip="{{pH_slider.tooltip}}" step="pH_slider.step" value="pH_slider.values" range="sliderOptions.range"></span> 
+                    <span slider  ng-model="ph_slider.model"  on-stop-slide="ph_slider_event(value,$event)" tooltipsplit="{{sliderOptions.tooltipsplit}}" ticks="ph_slider.ticks"  ticks-labels='ph_slider.ticks_labels' id="slider_pH"  slider-tooltip="{{ph_slider.tooltip}}" step="ph_slider.step" value="ph_slider.values" range="sliderOptions.range"></span> 
                 </div>
                 <div style="flex:1;width:10%; text-align:center">basic</div> 
             </div>

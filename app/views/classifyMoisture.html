@@ -15,7 +15,7 @@
             <div style="display:flex;flex-direction: row;"> 
                 <div style="flex:1;width:10%; text-align:center">dry </div>
                 <div style="width:80%">
-                    <span slider  ng-model="moisture_slider.model" tooltipsplit="{{sliderOptions.tooltipsplit}}"  formatter="formatterFn(value,moisture_slider.prefix,moisture_slider.suffix)" ticks="moisture_slider.labels"  ticks-labels="moisture_slider.labels" id="slider_moisture"  slider-tooltip="{{sliderOptions.tooltip}}" step="moisture_slider.step" value="moisture_slider.values" range="sliderOptions.range"></span>
+                    <span slider  ng-model="moisture_slider.model" on-stop-slide="moisture_slider_event(value,$event)" tooltipsplit="{{sliderOptions.tooltipsplit}}"  formatter="formatterFn(value,moisture_slider.prefix,moisture_slider.suffix)" ticks="moisture_slider.labels"  ticks-labels="moisture_slider.labels" id="slider_moisture"  slider-tooltip="{{sliderOptions.tooltip}}" step="moisture_slider.step" value="moisture_slider.values" range="sliderOptions.range"></span>
                 </div>
                 <div style="flex:1;width:10%; text-align:center">plashy</div> 
             </div>
