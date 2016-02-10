@@ -1,8 +1,8 @@
 'use strict';
 angular.module('openSenseMapApp')
         .controller('ExploreCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes',
-		'OpenSenseBoxCondition', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI','sliderValues',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxCondition,OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI,sliderValues) {
+		'OpenSenseBoxCondition', 'OpenSenseBoxesSensors','Plants', 'OpenSenseBox', 'OpenSenseBoxData', 'leafletMapEvents', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI','sliderValues','nav_elements',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxCondition,OpenSenseBoxesSensors, Plants, OpenSenseBox, OpenSenseBoxData, leafletMapEvents, Validation, ngDialog, leafletData, OpenSenseBoxAPI,sliderValues,nav_elements) {
 
                 $scope.osemapi = OpenSenseBoxAPI;
                 $scope.selectedMarker = '';
@@ -231,6 +231,7 @@ angular.module('openSenseMapApp')
                 $scope.hide_show_Plants = function () {
                     $scope.layers.overlays.plant.visible = !$scope.layers.overlays.plant.visible;
                 };
+                nav_elements.set_show(true);
                 $scope.selectedMarkerCondition = {};
                 $scope.show_manyBoxesAndPlants = false;
                 $scope.show_oneSenseBox = true;

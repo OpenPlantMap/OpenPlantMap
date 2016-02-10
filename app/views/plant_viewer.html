@@ -1,67 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<!DOCTYPE html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<link href="jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet">
-<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-<link rel="stylesheet" href="Leaflet.Geonames-master/L.Control.Geonames.css" />
-<link rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css" />
-
- 
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-<script src="Leaflet.Geonames-master/L.Control.Geonames.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
-<script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
+<div id="window">
+    
 <style> 
-html, body {
-	height: 100%;
-}
+
 #bodycon, #mapcontainer {
-	height: 90%;
+	height: 90vh;
 }
 #map {
 	border: 2px dashed black;
 	height: 100%;
 }
 </style>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>OpenPlantMap</title>
-
-
-</head>
-   <body>
    <div class="container" id="bodycon">
 
-      <!-- Static navbar -->
-      <!-- Navigation Bar -->
-        <header class="navbar navbar-default navbar-static-top" style="background-color: greenyellow;"ng-controller="HeaderCtrl">
-            <div class="navbar-inner">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <span id="brand_with_logo"><a class="navbar-brand" style="font-family: Helvetica,Arial,sans-serif;font-size: 25px;"href="#/"><img src="app/images/sensebox-favicon.png"/><b>&nbsp;openPlantMap</b></a></span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-    <div class="col-lg-8 col-sm-8 col-xs-12" id="mapcontainer" style: "height: 100%">
+    <div class="col-lg-8 col-sm-8 col-xs-12" id="mapcontainer">
     	<div id="map" ></div>  
     </div>
     <div class="panel panel-success col-lg-4 col-sm-4 col-xs-12" id="#UIcontainer">
@@ -91,7 +42,7 @@ html, body {
         
         <div class="row" id="legend_l1" hidden>
         	<div class="col-lg-2 col-sm-2 col-xs-2">
-            	<img id="legend_img1" src="pictures/leaf-green.png">
+            	<img id="legend_img1" src="/images/leaf-green.png">
             </div>
             <div class="col-lg-10 col-sm-10 col-xs-10">
             	<p id="legend_l1_lat">latin name: planttypeA </p>
@@ -101,7 +52,7 @@ html, body {
         
         <div class="row" id="legend_l2" hidden> 
         	<div class="col-lg-2 col-sm-2 col-xs-2">
-            	<img id="legend_img2" src="pictures/leaf-red.png">
+            	<img id="legend_img2" src="/images/leaf-red.png">
             </div>
             <div class="col-lg-10 col-sm-10 col-xs-10">
             	<p id="legend_l2_lat">latin name: planttypeA </p>
@@ -111,7 +62,7 @@ html, body {
         
         <div class="row" id="legend_l3" hidden> 
         	<div class="col-lg-2 col-sm-2 col-xs-2">
-            	<img id="legend_img3" src="pictures/leaf-orange.png">
+            	<img id="legend_img3" src="/images/leaf-orange.png">
             </div>
             <div class="col-lg-10 col-sm-10 col-xs-10">
             	<p id="legend_l3_lat">latin name: planttypeA </p>
@@ -120,10 +71,9 @@ html, body {
         </div>
         
     </div>
-    	
+   </div>
+</div>
 	
-  
-</body>
   <script>
     
     var dataSelection$nameType = "common";
@@ -409,7 +359,7 @@ html, body {
 	//var marker = L.marker([51.963549, 7.613166]).addTo(map);
     var LeafIcon = L.Icon.extend({
 		options: {
-			shadowUrl: 'pictures/leaf-shadow.png',
+			shadowUrl: 'images/leaf-shadow.png',
 			iconSize:     [38, 95],
 			shadowSize:   [50, 64],
 			iconAnchor:   [22, 94],
@@ -419,9 +369,9 @@ html, body {
 	});
 
 	var icon = [
-		new LeafIcon({iconUrl: 'pictures/leaf-green.png'}),
-		new LeafIcon({iconUrl: 'pictures/leaf-red.png'}),
-		new LeafIcon({iconUrl: 'pictures/leaf-orange.png'})
+		new LeafIcon({iconUrl: 'images/leaf-green.png'}),
+		new LeafIcon({iconUrl: 'images/leaf-red.png'}),
+		new LeafIcon({iconUrl: 'images/leaf-orange.png'})
 	];
 		
 	
@@ -430,4 +380,4 @@ html, body {
 	};
 	
 </script>
-</html>
+

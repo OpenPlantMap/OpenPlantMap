@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('openSenseMapApp')
-  .controller('RegisterCtrl', ['$scope', '$http', '$q', '$timeout', '$filter', '$location', 'leafletData', 'OpenSenseBoxAPI',
-    function($scope, $http, $q, $timeout, $filter, $location, leafletData, OpenSenseBoxAPI){
+  .controller('RegisterCtrl', ['$scope', '$http', '$q', '$timeout', '$filter', '$location', 'leafletData', 'OpenSenseBoxAPI','nav_elements',
+    function($scope, $http, $q, $timeout, $filter, $location, leafletData, OpenSenseBoxAPI,nav_elements){
       $scope.osemapi = OpenSenseBoxAPI;
-
+      nav_elements.set_show(false);
       $scope.alerts = [];
       $scope.editing = {};
       $scope.isCustom = {};

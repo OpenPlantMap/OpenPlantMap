@@ -25,8 +25,8 @@ angular
         .config(function ($routeProvider) {
             $routeProvider
                     .when('/', {
-                        templateUrl: 'views/explore.html',
-                        controller: 'ExploreCtrl'
+                        templateUrl: 'views/start.html',
+                        controller: 'StartCtrl'
                     })
                     .when('/register', {
                         templateUrl: 'views/register.html',
@@ -88,6 +88,10 @@ angular
                         templateUrl: 'views/classifyPh.html',
                         controller: 'ClassifyCtrl'
                     })
+                    .when('/plant_viewer', {
+                        templateUrl: 'views/plant_viewer.html',
+                        controller: 'PlantCtrl'
+                    })
                     .otherwise({
                         redirectTo: '/'
                     });
@@ -106,7 +110,7 @@ angular
             $translateProvider.determinePreferredLanguage();
             $translateProvider.useSanitizeValueStrategy('escaped');
         })
-        .controller('HeaderCtrl', ['$scope', '$rootScope', '$translate', '$route', function ($scope, $rootScope, $translate, $route) {
+        .controller('HeaderCtrl', ['$scope', '$rootScope', '$translate', '$route','nav_elements', function ($scope, $rootScope, $translate, $route, nav_elements) {
                 $scope.key = "de";
                 $scope.changeLang = function (key) {
                     $translate.use(key).then(function (key) {
@@ -122,6 +126,9 @@ angular
                     $scope.box = $rootScope.selectedBox;
                     console.log("box changed to " + $rootScope.selectedBox);
                 });
+                nav_elements.set_show(false);
+                $scope.nav_elements=nav_elements;
+                
             }])
         .filter('unsafe', ['$sce', function ($sce) {
                 return function (val) {

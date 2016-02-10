@@ -1,7 +1,8 @@
 'use strict';
 angular.module('openSenseMapApp')
-        .controller('ClassifyCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI', 'sliderValues',
-            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, Validation, ngDialog, leafletData, OpenSenseBoxAPI, sliderValues) {
+        .controller('ClassifyCtrl', ['$rootScope', '$scope', '$http', '$filter', '$timeout', '$location', '$routeParams', 'OpenSenseBoxes', 'OpenSenseBoxesSensors', 'OpenSenseBox', 'OpenSenseBoxData', 'validation', 'ngDialog', 'leafletData', 'OpenSenseBoxAPI', 'sliderValues','nav_elements',
+            function ($rootScope, $scope, $http, $filter, $timeout, $location, $routeParams, OpenSenseBoxes, OpenSenseBoxesSensors, OpenSenseBox, OpenSenseBoxData, Validation, ngDialog, leafletData, OpenSenseBoxAPI, sliderValues,nav_elements) {
+               nav_elements.set_show(true);
                 $scope.sliderOptions = {
                     tooltip: 'always',
                     tooltipsplit: true,
